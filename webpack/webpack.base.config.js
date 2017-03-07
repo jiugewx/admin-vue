@@ -163,11 +163,6 @@ var BaseConfig = {
     plugins: options.plugins,
     vue: options.vue,
     module: {
-        /*语法检查*/
-        // preLoaders: [
-        // {test: /\.vue$/, loader: 'eslint', exclude: /node_modules/},
-        // {test: /\.js$/, loader: 'eslint', exclude: /node_modules/}],
-
         loaders: [{
             test: /\.vue$/,
             loader: 'vue'
