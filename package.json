@@ -1,8 +1,8 @@
 {
-  "name": "hqyxjy-admin-web",
-  "version": "1.3.0",
-  "description": "环球优学教育的后台",
-  "author": "环球优学前端组",
+  "name": "admin",
+  "version": "1.0.0",
+  "description": "后台技术框架",
+  "author": "Jiugewx|王鑫",
   "private": true,
   "scripts": {
     "dev": " webpack-dev-server --config  ./webpack/webpack.dev.config.js -colors --progress",
