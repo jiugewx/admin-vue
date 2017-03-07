@@ -1,6 +1,4 @@
-var login = require('../login/webpack.project.config.js');
 var admin = require('../admin/webpack.project.config.js');
-var browser = require('../browser/webpack.project.config.js');
 
 var path = require('path');
 var webpack = require('webpack');
@@ -19,25 +17,15 @@ var publicPath = "/";
 
 function pages() {
     var pages = [];
-    pages = pages.concat(login.pages);
     pages = pages.concat(admin.pages);
-    pages = pages.concat(browser.pages);
     return pages
 }
 
 function entry() {
     var entries = {};
 
-    for (var key in login.entry) {
-        entries[key] = login.entry[key];
-    }
-
     for (var key1 in admin.entry) {
         entries[key1] = admin.entry[key1];
-    }
-
-    for (var key2 in browser.entry) {
-        entries[key2] = browser.entry[key2];
     }
 
     return entries
@@ -266,9 +254,6 @@ var distConfigs = {
 
 function buildDocuments() {
     var distFile = './dist';
-    // if (process.env.NODE_ENV == "development" || process.env.NODE_ENV == "build") {
-    //     distFile = './my_dist';
-    // }
 
     var fileTool = require("./node.fileTools.js");
     // 新建dist目录
