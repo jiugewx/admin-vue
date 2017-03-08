@@ -6,10 +6,10 @@
   "private": true,
   "scripts": {
     "dev":  "webpack-dev-server --config  ./build/webpack.dev.conf.js",
-    "develop": "node ./build/dev-server.js",
-    "product": "node ./build/build.js",
     "dist": "webpack --config ./build/webpack.dist.conf.js",
     "start": "node ./build/node.server.js",
+    "develop": "node ./build/dev-server.js",
+    "product": "node ./build/build.js",
     "unit": "karma start ./build/karma.unit.js"
   },
   "dependencies": {
