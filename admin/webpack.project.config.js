@@ -3,15 +3,15 @@ var options = {
         pages: [
             /*page1*/
             {
-                from: "./admin/entry/common-index",
-                to: "home/page1.html",
-                required: ['admin/page1']
+                template: "./admin/entry/index.template",
+                output: "home/page1.html",
+                chunks: ['admin/page1']
             },
             /*page2*/
             {
-                from: "./admin/entry/common-index",
-                to: "home/page2.html",
-                required: ['admin/page2']
+                template: "./admin/entry/index.template",
+                output: "home/page2.html",
+                chunks: ['admin/page2']
             }
         ],
         entry: {
