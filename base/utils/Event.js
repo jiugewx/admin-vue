@@ -33,4 +33,4 @@ wx.Event = {
     SEARCH_TAB_CHANGED: "SEARCH_TAB_CHANGED"         // search-box中的tabs切换
 };
 
-module.exports = wx;
+export default wx

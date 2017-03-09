@@ -11,7 +11,7 @@ import "./Ajax";
 import "./Filter";
 import "./Frame";
 import "./Event";
-import "./Prop";
 import "./Date";
+import "./Prop";
 import "./Reg";
 import "./Object.test.js";//添加用于测试的对象

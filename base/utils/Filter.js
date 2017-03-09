@@ -396,4 +396,4 @@ wx.Filter = {
 };
 
 
-module.exports = wx;
+export default wx

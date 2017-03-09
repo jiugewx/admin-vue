@@ -351,4 +351,4 @@ wx.Ajax = {
     }
 };
 
-module.exports = wx;
+export default wx

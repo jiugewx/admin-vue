@@ -58,4 +58,4 @@ wx.Reg = {
     }
 };
 
-module.exports = Thu;
+export default wx

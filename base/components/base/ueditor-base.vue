@@ -2,8 +2,6 @@
     <div id="{{uuid}}" class="ueditor"></div>
 </template>
 <script>
-    import baseData from '../data/base_data.vue'
-
     export default{
         name: "ueditor-base",
         props: {
@@ -34,7 +32,21 @@
             this._createUE(options);
         },
         methods: {
-
+            // 动态插入这个组件的资源引用（包括js和css)
+            _createScript: function (srcName) {
+                var doc = window.document;
+                var docEl = doc.documentElement;
+                var scriptEl = doc.createElement("script");
+                scriptEl.setAttribute("type", "text/javascript");
+                scriptEl.setAttribute("src", srcName);
+                if ( docEl.firstElementChild ) {
+                    docEl.firstElementChild.appendChild(scriptEl);
+                } else {
+                    var wrap = doc.createElement('div');
+                    wrap.appendChild(scriptEl);
+                    doc.write(wrap.innerHTML);
+                }
+            },
             _createUE(options){
                 var config = options.config;
                 var defaultValue = options.value;
@@ -46,7 +58,7 @@
                     this.config = {
                         initialFrameWidth: this.data.config.width || 850,           //初始化编辑器宽度,默认1000
                         initialFrameHeight: this.data.config.height || 300,         //初始化编辑器高度,默认320
-                        initialContent:  "",
+                        initialContent: "",
                         autoHeightEnabled: false,
                         autoClearinitialContent: true,
                         focus: false
@@ -61,7 +73,7 @@
 
                 var value = this.getValue();
                 // if ( UE.getEditor(this.uuid).getContentTxt().trim() == "" && (""+value).toLowerCase().indexOf("<img") === -1){
-                if ( UE.getEditor(this.uuid).getContentTxt().trim() == "" && !this.useableHtml(value)){
+                if ( UE.getEditor(this.uuid).getContentTxt().trim() == "" && ! this.useableHtml(value) ) {
                     value = "";
                 }
 
@@ -84,19 +96,19 @@
                 return true;
             },
             useableHtml: function (html) {
-                var string = (""+html).toLowerCase();
+                var string = ("" + html).toLowerCase();
                 // 包含img
-                if( string.indexOf("<img") !== -1){
+                if ( string.indexOf("<img") !== - 1 ) {
                     return true
                 }
 
                 // canvas
-                if( string.indexOf("<canvas") !== -1){
+                if ( string.indexOf("<canvas") !== - 1 ) {
                     return true
                 }
 
                 // svg
-                if( string.indexOf("<svg") !== -1){
+                if ( string.indexOf("<svg") !== - 1 ) {
                     return true
                 }
 
@@ -124,7 +136,7 @@
             },
             // [必须]获取组件查询条件的方法
             getData: function () {
-                var value  = this.getValue();
+                var value = this.getValue();
                 // 数据校验
                 if ( true !== this.validate() ) {
                     return false;
@@ -165,7 +177,6 @@
             var ue = UE.getEditor(this.uuid);
             ue.destroy();// 销毁
         },
-        extends: baseData
     }
 </script>
 <style>

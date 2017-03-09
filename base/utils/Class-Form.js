@@ -81,4 +81,4 @@ FPO.toData = function () {
 
 wx["FormObject"] = FormObject;
 
-module.exports = wx;
+export default wx

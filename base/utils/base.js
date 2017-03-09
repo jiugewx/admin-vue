@@ -456,10 +456,10 @@ wx.fn = {
             }
             return false;
         }
-    }
+    },
 };
 
 
 window['wx'] = wx;
 
-module.exports = wx;
+export default wx

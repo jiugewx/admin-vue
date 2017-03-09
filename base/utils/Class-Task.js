@@ -150,4 +150,4 @@ Task.race = function(tasks) {
 
 wx["Task"] = Task;
 
-module.exports = wx;
+export default wx

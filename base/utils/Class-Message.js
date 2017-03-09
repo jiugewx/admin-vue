@@ -83,4 +83,4 @@ MPO.getNames = function () {
 
 wx["MessageObject"] = MessageObject;
 
-module.exports = wx;
+export default wx

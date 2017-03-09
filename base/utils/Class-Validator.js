@@ -100,4 +100,4 @@ Validator.Length = function (min, max, message) {
 
 wx["Validator"] = Validator;
 
-module.exports = wx;
+export default wx

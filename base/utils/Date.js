@@ -102,4 +102,4 @@ wx.Date = {
     }
 };
 
-module.exports = wx;
+export default wx

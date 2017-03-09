@@ -8,7 +8,7 @@ var baseWebpackConfig = require('./webpack.base.conf');
 
 // 添加自动刷新模块
 Object.keys(baseWebpackConfig.entry).forEach(function (name) {
-    baseWebpackConfig.entry[name] = ['./build/dev-client'].concat(baseWebpackConfig.entry[name])
+    baseWebpackConfig.entry[name] = ['./config/dev-client'].concat(baseWebpackConfig.entry[name])
 });
 
 var devWebpackConfig = merge(baseWebpackConfig, {

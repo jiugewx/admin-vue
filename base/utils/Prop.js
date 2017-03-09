@@ -794,4 +794,4 @@ wx.Prop.Config = {
     }
 };
 
-module.exports = wx;
+export default wx
