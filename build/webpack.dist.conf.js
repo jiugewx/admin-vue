@@ -1,19 +1,13 @@
-process.env.NODE_ENV = 'production';
 var path = require('path');
 var webpack = require('webpack');
 var merge = require('webpack-merge');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
-var config = require('../config');
+var config = require("./env.conf.js");
 var utils = require('./utils');
+utils.setEnv(config.dist.env);
 var baseWebpackConfig = require('./webpack.base.conf');
-
-
-var env = utils.isEnv("testing")
-    ? require('../config/test.env')
-    : config.dist.env;
-
 var webpackConfig = merge(baseWebpackConfig, {
     module: {
         rules: utils.styleLoaders({
@@ -22,11 +16,6 @@ var webpackConfig = merge(baseWebpackConfig, {
         })
     },
     devtool: false,
-    output: {
-        path: config.dist.assetsRoot,
-        filename: utils.assetsPath('js/[name].[chunkhash].js'),
-        chunkFilename: utils.assetsPath('js/[id].[chunkhash].js')
-    },
     plugins: [
         new webpack.optimize.UglifyJsPlugin({
             compress: {
@@ -36,9 +25,9 @@ var webpackConfig = merge(baseWebpackConfig, {
         }),
         new OptimizeCSSPlugin(),
         new ExtractTextPlugin({
-                filename:utils.assetsPath('style/[name].css?[contenthash:8]'), //css的打包地址,添加hash
-                allChunks: true,
-            }),
+            filename: utils.assetsPath(config.dist.cssFileName), //css的打包地址,添加hash
+            allChunks: true,
+        }),
         new CopyWebpackPlugin([
             {
                 from: path.resolve(__dirname, '../libs'),

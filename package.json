@@ -9,7 +9,7 @@
     "dist": "webpack --config ./build/webpack.dist.conf.js",
     "start": "node ./build/node.server.js",
     "develop": "node ./build/dev-server.js",
-    "product": "node ./build/build.js",
+    "build": "node ./build/dist-build.js",
     "unit": "karma start ./build/karma.unit.js"
   },
   "dependencies": {

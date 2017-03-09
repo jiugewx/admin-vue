@@ -4,4 +4,4 @@
 
 import "../../../style/style.less"
 
-console.log("start!");
+console.log("page1.start!");

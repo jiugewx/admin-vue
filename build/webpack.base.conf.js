@@ -1,23 +1,29 @@
-
+require('./check-versions')();
 var path = require('path');
-var startOptions = require("./start");
+var chalk = require('chalk');
+var entryOptions = require("./entry");
 var utils = require('./utils');
-var config = require('../config');
+var config = require("./env.conf.js");
 var vueLoaderConfig = require('./vue-loader.conf');
 
-console.log("\033[32m 当前 NODE_ENV : \033[0m" + process.env.NODE_ENV);
+console.log(chalk.green("process.env.NODE_ENV : ") + chalk.yellow(process.env.NODE_ENV));
 
 function resolve(dir) {
     return path.join(__dirname, '..', dir)
 }
 
 var plugins = [utils.envPlugin()];
-plugins = plugins.concat(utils.htmlPlugins(startOptions.pages, startOptions.common));
-plugins = plugins.concat(utils.commonPlugins(startOptions));
+plugins = plugins.concat(utils.htmlPlugins(entryOptions));
+plugins = plugins.concat(utils.commonPlugins(entryOptions));
 
 module.exports = {
-    entry: startOptions.entry,
-    output: startOptions.output,
+    entry: entryOptions.entry,
+    output: {
+        path: config.dist.assetsRoot,
+        publicPath: utils.isEnv("production") ? config.dist.assetsPublicPath : config.dev.assetsPublicPath,
+        filename: utils.isEnv("development") ? config.dev.jsFileName : config.dist.jsFileName,
+        chunkFilename: utils.isEnv("development") ? config.dev.jsFileName : config.dist.jsFileName
+    },
     resolve: {
         extensions: ['.js', '.vue', '.json'],
         alias: {
@@ -41,7 +47,7 @@ module.exports = {
                 loader: 'url-loader',
                 query: {
                     limit: 10000,
-                    name: utils.assetsPath('images/[name].[hash:8].[ext]?[hash:8]')
+                    name: utils.assetsPath(config.dist.imageFileName)
                 }
             },
             {
@@ -49,7 +55,7 @@ module.exports = {
                 loader: 'url-loader',
                 query: {
                     limit: 10000,
-                    name: utils.assetsPath('fonts/[name].[sha512:hash:base64:8].[ext]?[hash:8]')
+                    name: utils.assetsPath(config.dist.fontsFileName)
                 }
             },
             {
@@ -58,5 +64,5 @@ module.exports = {
             },
         ]
     },
-    plugins:plugins
+    plugins: plugins
 };

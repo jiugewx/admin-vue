@@ -4,7 +4,7 @@
 
 
 require('./check-versions')();
-var config = require('../config');
+var config = require("./env.conf.js");
 if ( ! process.env.NODE_ENV ) {
     process.env.NODE_ENV = JSON.parse(config.dev.env.NODE_ENV)
 }
@@ -31,7 +31,8 @@ var devMiddleware = require('webpack-dev-middleware')(compiler, {
 });
 
 var hotMiddleware = require('webpack-hot-middleware')(compiler, {
-    log: () => {}
+    log: () => {
+    }
 });
 
 // 编译中间件
@@ -73,6 +74,6 @@ module.exports = app.listen(port, function (err) {
     }
 
     if ( autoOpenBrowser && process.env.NODE_ENV !== 'testing' ) {
-        opn(uri)
+        opn(uri) ;// 自动打开页面
     }
 });

@@ -2,11 +2,8 @@
  * Created by wangxin on 2017/3/8.
  */
 var admin = require("../admin/webpack.project.config.js");
-var config = require("../config");
+var config = require("./env.conf.js");
 var utils = require("./utils");
-var outPath = config.dist.assetsRoot;
-var publicPath = utils.isEnv("production") ? config.dist.assetsPublicPath : config.dev.assetsPublicPath;
-var fileName = utils.isEnv("development") ? config.dev.jsFileName : config.dist.jsFileName;
 
 function pages() {
     var pages = [];
@@ -27,12 +24,6 @@ var options = {
     pages: pages(),
     entry: entry(),
     common: true,
-    output: {
-        path: outPath,
-        publicPath: publicPath,
-        filename: fileName,
-        chunkFilename: fileName
-    },
 };
 
 module.exports = options;

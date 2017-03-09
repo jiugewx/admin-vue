@@ -2,12 +2,34 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var path = require('path');
 var webpack = require('webpack');
-var config = require('../config');
+var config = require("./env.conf.js");
 
-// 是否为生产环境
+// 判断环境
 exports.isEnv = function (env) {
     var envString = "" + env;
     return process.env.NODE_ENV === envString;
+};
+
+// 设置环境
+exports.setEnv = function (env) {
+    process.env.NODE_ENV = "" + env;
+};
+
+// 获取环境
+exports.getEnv = function () {
+    return process.env.NODE_ENV
+};
+
+
+exports.mergeObject = function (destination, source) {
+    for (var property in source) {
+        if ( source.hasOwnProperty(property) ) {
+            destination[property] = source[property];   // 利用动态语言的特性, 通过赋值动态添加属性与方法
+        }
+    }
+    // 去除引用
+    var copy = JSON.stringify(destination);
+    return JSON.parse(copy);   // 返回扩展后的对象
 };
 
 // 设置静态文件输出目录
@@ -74,7 +96,7 @@ exports.styleLoaders = function (options) {
 };
 
 // 输出html的依赖处理(构造多个页面)
-exports.htmlPlugins = function (pages, commonConfig) {
+exports.htmlPlugins = function (options) {
     var plugins = [];
 
     function buildHtml(page) {
@@ -99,12 +121,11 @@ exports.htmlPlugins = function (pages, commonConfig) {
      *      chunks:[]
      *  }
      */
-    for (var i = 0; i < pages.length; i ++) {
-        var page = pages[i];
-        if ( commonConfig.common && ("" + page.chunks).indexOf("/") != - 1 ) {
+    for (var i = 0; i < options.pages.length; i ++) {
+        var page = options.pages[i];
+        if ( options.common ) {
             page.chunks.push('vendor');
         }
-
         var htmlPluginsCommon = buildHtml(page);
         plugins.push(htmlPluginsCommon);
     }
@@ -115,15 +136,14 @@ exports.htmlPlugins = function (pages, commonConfig) {
 exports.commonPlugins = function (options) {
     var _chunks = [];
     for (var name in options.entry) {
-        if ( name.indexOf('/') != - 1 ) {
-            _chunks.push(name);
-        }
+        _chunks.push(name);
     }
 
     var vendorChunk = new webpack.optimize.CommonsChunkPlugin({
         name: 'manifest',
         chunks: ['vendor']
     });
+
     var commonChunk = new webpack.optimize.CommonsChunkPlugin({
         name: 'vendor',
         minChunks: _chunks.length

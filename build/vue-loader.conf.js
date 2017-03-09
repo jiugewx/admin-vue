@@ -1,5 +1,5 @@
 var utils = require('./utils');
-var config = require('../config');
+var config = require("./env.conf.js");
 var isProduction = utils.isEnv('production');
 
 module.exports = {
