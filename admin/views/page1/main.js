@@ -8,79 +8,65 @@ import "../../../base/utils/index";
 console.log("page1.start!");
 console.log("process.env.NODE_ENV:" + process.env.NODE_ENV);
 
-function loadElement(element) {
 
-}
-
-
-function addScript(srcName) {
-    console.log(window[srcName]);
-    if ( typeof window[srcName] == "undefined" ) {
-        var doc = window.document;
-        var scriptEl = doc.createElement("script");
-        scriptEl.setAttribute("type", "text/javascript");
-        scriptEl.setAttribute("charset", "utf-8");
-        scriptEl.setAttribute("src", srcName);
-        window[srcName] = scriptEl;
-        document.getElementsByTagName('head')[0].appendChild(scriptEl);
-        scriptEl.onload = scriptEl.onreadystatechange = function () {
-            if ( ! this.readyState || /loaded|complete/.test(this.readyState) ) {
-                scriptEl.onload = scriptEl.onreadystatechange = null;
-            }
-        }
-    }
-    return loadElement(window[srcName])
-}
-
-var scriptResource = function (srcName, callback) {
+var ScriptResource = function (srcName, callback) {
     this.name = srcName;
     this.$el = null;
     this.$callback = callback;
-    var self = this;
-    var status = {
-        create: function () {
-            self.create2loading();
-        },
-        loading:function () {
-            self.loading2ready()
-        },
-        ready:function () {
-            self.$callback && self.$callback();
-        }
-    };
-    if ( typeof window[this.name] == "undefined" ) {
+    var status = window[this.name];
+    if ( typeof status == "undefined" ) {
         window[this.name] = "create";
-        this.create2loading();
-    } else {
-        var _status = window[this.name];
-        status[_status]();
     }
+    this.handleStatus(window[this.name]);
 };
 
-scriptResource.prototype.create2loading = function () {
+ScriptResource.prototype.load = function () {
     var doc = window.document;
     var scriptEl = doc.createElement("script");
     scriptEl.setAttribute("type", "text/javascript");
     scriptEl.setAttribute("charset", "utf-8");
     scriptEl.setAttribute("src", this.name);
     document.getElementsByTagName('head')[0].appendChild(scriptEl);
-    window[this.name] = "loading";
     this.$el = scriptEl;
-    this.loading2ready();
-};
-
-
-scriptResource.prototype.loading2ready = function () {
+    window[this.name] = "loading";
     var self = this;
-    var scriptEl = this.$el;
     scriptEl.onload = scriptEl.onreadystatechange = function () {
         if ( ! this.readyState || /loaded|complete/.test(this.readyState) ) {
             scriptEl.onload = scriptEl.onreadystatechange = null;
             window[self.name] = "ready";
-            self.$callback && self.$callback();
+            self.handleStatus("ready");
         }
     }
 };
+
+ScriptResource.prototype.handleStatus = function (status) {
+    var self = this;
+    var statusHandler = {
+        // 开始创建
+        create: function () {
+            self.load();
+            return self;
+        },
+        // 设置等待
+        loading: function () {
+            var timer = setInterval(function () {
+                if ( window[self.name] == "ready" ) {
+                    clearInterval(timer);
+                    self.handleStatus("ready")
+                }
+            }, 100);
+            return self;
+        },
+        // 完成的标志
+        ready: function () {
+            self.$callback && self.$callback();
+            return self;
+        }
+    };
+
+    return statusHandler[status]();
+};
+
 
 var config = {
     initialFrameWidth: 850,
@@ -94,35 +80,34 @@ var config = {
 // 设置好ueditor的默认地址
 window["UEDITOR_HOME_URL"] = "/libs/Ueditor/";
 
-function createUe(id) {
-    return new wx.Task(function () {
-        UE.getEditor(id, config)
-    })
-}
+function create(callback) {
+    new ScriptResource("/libs/Ueditor/ueditor.config.js", script2);
 
-var isReady = false;
-function loadUeditor(success) {
-    if ( ! isReady ) {
-        var config = addScript("/libs/Ueditor/ueditor.config.js");
-        var all = addScript("/libs/Ueditor/ueditor.all.js");
-        var zh = addScript("/libs/Ueditor/lang/zh-cn/zh-cn.js");
-        var dialog = addScript("/libs/Ueditor/kityformula-plugin/addKityFormulaDialog.js");
-        var content = addScript("/libs/Ueditor/kityformula-plugin/getKfContent.js");
-        var filter = addScript("/libs/Ueditor/kityformula-plugin/defaultFilterFix.js");
-        window.onload = function () {
-            isReady = true;
-            success && success();
-        }
-    } else {
-        success && success();
+    function script2() {
+        new ScriptResource("/libs/Ueditor/ueditor.all.js", script3);
+    }
+
+    function script3() {
+        new ScriptResource("/libs/Ueditor/lang/zh-cn/zh-cn.js", script4);
+    }
+
+    function script4() {
+        new ScriptResource("/libs/Ueditor/kityformula-plugin/addKityFormulaDialog.js", script5);
+    }
+
+    function script5() {
+        new ScriptResource("/libs/Ueditor/kityformula-plugin/getKfContent.js", script6);
+    }
+
+    function script6() {
+        new ScriptResource("/libs/Ueditor/kityformula-plugin/defaultFilterFix.js", callback)
     }
 }
 
-
-loadUeditor(function () {
+create(function () {
     UE.getEditor("uuid1", config)
 });
 
-loadUeditor(function () {
+create(function () {
     UE.getEditor("uuid2", config)
 });
