@@ -1,7 +1,7 @@
 var path = require('path');
 var webpack = require('webpack');
 var merge = require('webpack-merge');
-var CopyWebpackPlugin = require('copy-webpack-plugin');
+var CopyWebpackPlugin = require('copy-webpack-plugin'); // 复制文件
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
 var config = require("./env.conf.js");
