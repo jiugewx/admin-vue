@@ -1,0 +1,53 @@
+// Center-align a block level element
+
+.center-block() {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+// 清除浮动
+.clearfix() {
+    &:before,
+    &:after {
+        content: " "; // 1
+        display: table; // 2
+    }
+    &:after {
+        clear: both;
+    }
+}
+
+// Responsive utilities
+
+//
+// More easily include all the states for responsive-utilities.less.
+.responsive-visibility() {
+    display: block !important;
+    table&  { display: table; }
+    tr&     { display: table-row !important; }
+    th&,
+    td&     { display: table-cell !important; }
+}
+
+.responsive-invisibility() {
+    display: none !important;
+}
+
+
+// Text overflow
+// Requires inline-block or block for proper styling
+
+.text-overflow() {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.text-hide() {
+    font: ~"0/0" a;// 一个是字体大小，一个是行高，a是个最短的字体名称，只是用来为了通过css validation的。
+    color: transparent;
+    text-shadow: none;
+    background-color: transparent;
+    border: 0;
+}

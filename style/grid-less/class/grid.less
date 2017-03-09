@@ -1,0 +1,80 @@
+
+
+
+
+// ==========================栅格系统的样式================================
+
+// container 宽度
+//
+// 设置容器的宽度，并可以在媒体查询固定navbars。
+
+.container {
+  .container-fixed();
+
+  @media (min-width: @screen-sm-min) {
+    width: @container-sm;
+  }
+  @media (min-width: @screen-md-min) {
+    width: @container-md;
+  }
+  @media (min-width: @screen-lg-min) {
+    width: @container-lg;
+  }
+}
+
+
+// 流态 container
+//
+// 利用混合用来固定宽度的container，但没有任何定义的宽度为流体，全宽度布局。
+
+.container-fluid {
+  .container-fixed();
+}
+
+
+// row 行
+
+.row {
+  .make-row();
+}
+
+
+// Columns 列
+//
+// small和large 网格系统 的通用样式 Common styles for small and large grid columns
+
+.make-grid-columns();
+
+
+// Extra small grid  特别小的网格系统(手机)
+//
+// Columns, offsets, pushes, and pulls for extra small devices like smart phones.
+
+.make-grid(xs);
+
+
+// Small grid  小的网格系统
+//
+// Columns, offsets, pushes, and pulls for the small device range, from phones to tablets.
+
+@media (min-width: @screen-sm-min) {
+  .make-grid(sm);
+}
+
+
+// Medium grid  普通的网格系统
+//
+// Columns, offsets, pushes, and pulls for the desktop device range.
+
+@media (min-width: @screen-md-min) {
+  .make-grid(md);
+}
+
+
+// Large grid  大的网格系统
+
+// Columns, offsets, pushes, and pulls for the large desktop device range.
+
+@media (min-width: @screen-lg-min) {
+  .make-grid(lg);
+}
