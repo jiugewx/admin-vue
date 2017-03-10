@@ -429,7 +429,7 @@ wx.fn = {
         return scrollHeight;
     },
     // 允许滚动
-    enableScroll:function (Element) {
+    enableScroll: function (Element) {
         Element.addEventListener('mousewheel', enAbleScroll, false);
         function enAbleScroll(e) {
             e.stopPropagation();
@@ -457,6 +457,51 @@ wx.fn = {
             return false;
         }
     },
+    // 动态插入script的资源文件
+    getScriptResource: function (srcName, callback) {
+        var name = srcName;
+        var status = window[name];
+        if ( typeof status == "undefined" ) {
+            window[name] = "create";
+        }
+        handleStatus(window[name]);
+
+        function handleStatus(status) {
+            var statusHandler = {
+                // 开始创建
+                create: function () {
+                    var doc = window.document;
+                    var scriptEl = doc.createElement("script");
+                    scriptEl.setAttribute("type", "text/javascript");
+                    scriptEl.setAttribute("charset", "utf-8");
+                    scriptEl.setAttribute("src", name);
+                    document.getElementsByTagName('head')[0].appendChild(scriptEl);
+                    window[name] = "loading";
+                    scriptEl.onload = scriptEl.onreadystatechange = function () {
+                        if ( ! this.readyState || /loaded|complete/.test(this.readyState) ) {
+                            scriptEl.onload = scriptEl.onreadystatechange = null;
+                            window[name] = "ready";
+                            handleStatus("ready");
+                        }
+                    };
+                },
+                // 设置等待
+                loading: function () {
+                    var timer = setInterval(function () {
+                        if ( window[name] == "ready" ) {
+                            clearInterval(timer);
+                            handleStatus("ready")
+                        }
+                    }, 100);
+                },
+                // 完成的标志
+                ready: function () {
+                    callback && callback();
+                }
+            };
+            return statusHandler[status]();
+        }
+    }
 };
 
 

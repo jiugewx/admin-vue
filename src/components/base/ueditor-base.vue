@@ -1,7 +1,35 @@
 <template>
-    <div id="{{uuid}}" class="ueditor"></div>
+    <div :id="uuid" class="ueditor"></div>
 </template>
 <script>
+    // 获取资源文件，并做回调
+    function getResource(callback) {
+        // 设置好ueditor的默认地址
+        window["UEDITOR_HOME_URL"] = "/libs/Ueditor/";
+
+        wx.fn.getScriptResource("/libs/Ueditor/ueditor.config.js", script2);
+
+        function script2() {
+            wx.fn.getScriptResource("/libs/Ueditor/ueditor.all.js", script3);
+        }
+
+        function script3() {
+            wx.fn.getScriptResource("/libs/Ueditor/lang/zh-cn/zh-cn.js", script4);
+        }
+
+        function script4() {
+            wx.fn.getScriptResource("/libs/Ueditor/kityformula-plugin/addKityFormulaDialog.js", script5);
+        }
+
+        function script5() {
+            wx.fn.getScriptResource("/libs/Ueditor/kityformula-plugin/getKfContent.js", script6);
+        }
+
+        function script6() {
+            wx.fn.getScriptResource("/libs/Ueditor/kityformula-plugin/defaultFilterFix.js", callback)
+        }
+    }
+
     export default{
         name: "ueditor-base",
         props: {
@@ -9,7 +37,7 @@
         },
         data () {
             return {
-                uuid: Thu.fn.createUuid("UE"),
+                uuid: wx.fn.createUuid("UE"),
                 name: '',
                 value: '',
                 readyFlag: false,  //本组件ready的标志
@@ -32,25 +60,13 @@
             this._createUE(options);
         },
         methods: {
-            // 动态插入这个组件的资源引用（包括js和css)
-            _createScript: function (srcName) {
-                var doc = window.document;
-                var docEl = doc.documentElement;
-                var scriptEl = doc.createElement("script");
-                scriptEl.setAttribute("type", "text/javascript");
-                scriptEl.setAttribute("src", srcName);
-                if ( docEl.firstElementChild ) {
-                    docEl.firstElementChild.appendChild(scriptEl);
-                } else {
-                    var wrap = doc.createElement('div');
-                    wrap.appendChild(scriptEl);
-                    doc.write(wrap.innerHTML);
-                }
-            },
             _createUE(options){
                 var config = options.config;
                 var defaultValue = options.value;
-                var ue = UE.getEditor(this.uuid, config);
+                var self = this;
+                getResource(function () {
+                    UE.getEditor(self.uuid, config);
+                });
             },
 
             init(){
@@ -72,7 +88,6 @@
                 this.message = "";
 
                 var value = this.getValue();
-                // if ( UE.getEditor(this.uuid).getContentTxt().trim() == "" && (""+value).toLowerCase().indexOf("<img") === -1){
                 if ( UE.getEditor(this.uuid).getContentTxt().trim() == "" && ! this.useableHtml(value) ) {
                     value = "";
                 }
@@ -176,7 +191,7 @@
         beforeDestroy(){
             var ue = UE.getEditor(this.uuid);
             ue.destroy();// 销毁
-        },
+        }
     }
 </script>
 <style>

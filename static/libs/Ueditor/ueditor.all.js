@@ -23602,7 +23602,7 @@ UE.plugin.register('music', function (){
                     (align && !cssfloat? 'align="' + align + '"' : '') +
                     (cssfloat ? 'style="float:' + cssfloat + '"' : '') +
                     ' width="'+ width +'" height="' + height + '" _url="'+url+'" class="edui-faked-music"' +
-                    ' src='+me.options.langPath+me.options.lang+'"/src/images/music.png" />'
+                    ' src='+me.options.langPath+me.options.lang+'"/src/assets/music.png" />'
             :
             '<embed type="application/x-shockwave-flash" class="edui-faked-music" pluginspage="http://www.macromedia.com/go/getflashplayer"' +
                 ' src="' + url + '" width="' + width  + '" height="' + height  + '" '+ (align && !cssfloat? 'align="' + align + '"' : '') +
@@ -23707,7 +23707,7 @@ UE.plugin.register('autoupload', function (){
         if (filetype == 'image') {
             loadingHtml = '<img class="loadingclass" id="' + loadingId + '" src=' +
                 me.options.themePath + me.options.theme +
-                '"/src/images/spacer.gif" title="' + (me.getLang('autoupload.loading') || '') + '" >';
+                '"/src/assets/spacer.gif" title="' + (me.getLang('autoupload.loading') || '') + '" >';
             successHandler = function(data) {
                 var link = urlPrefix + data.url,
                     loader = me.document.getElementById(loadingId);
@@ -23724,7 +23724,7 @@ UE.plugin.register('autoupload', function (){
             loadingHtml = '<p>' +
                 '<img class="loadingclass" id="' + loadingId + '" src=' +
                 me.options.themePath + me.options.theme +
-                '"/src/images/spacer.gif" title="' + (me.getLang('autoupload.loading') || '') + '" >' +
+                '"/src/assets/spacer.gif" title="' + (me.getLang('autoupload.loading') || '') + '" >' +
                 '</p>';
             successHandler = function(data) {
                 var link = urlPrefix + data.url,
@@ -24458,7 +24458,7 @@ UE.plugin.register('simpleupload', function (){
                 var allowFiles = me.getOpt('imageAllowFiles');
 
                 me.focus();
-                me.execCommand('inserthtml', '<img class="loadingclass" id="' + loadingId + '" src=' + me.options.themePath + me.options.theme +'"/src/images/spacer.gif" title="' + (me.getLang('simpleupload.loading') || '') + '" >');
+                me.execCommand('inserthtml', '<img class="loadingclass" id="' + loadingId + '" src=' + me.options.themePath + me.options.theme +'"/src/assets/spacer.gif" title="' + (me.getLang('simpleupload.loading') || '') + '" >');
 
                 function callback(){
                     try{
