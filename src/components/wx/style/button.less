@@ -1,0 +1,134 @@
+@import "../../style-less/variables-mixins";
+
+.wx-button {
+    margin: 0;
+    font-family: @font-family;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    line-height: 16px;
+
+    font-weight: normal;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    background: none;
+    overflow: hidden;
+    outline: none;
+    border: 1px solid transparent;
+
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    touch-action: manipulation; // IE
+    cursor: pointer;
+
+    border-radius: 4px;
+    padding: 6px 18px;
+    min-width: 80px;
+    height: 30px;
+
+    &::-moz-focus-inner {
+        border: 0;
+    }
+
+    &[disabled] {
+        opacity: 0.6;
+        cursor :not-allowed;
+    }
+
+    &:not([disabled]) {
+        cursor: pointer;
+    }
+
+}
+
+.wx-shadow {
+    -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, .175);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, .175);
+}
+
+.wx-button-normal {
+    &.color-primary, &.color-blue,
+    &.color-accent, &.color-purple,
+    &.color-success, &.color-green,
+    &.color-warning, &.color-yellow,
+    &.color-danger, &.color-red {
+        color: white;
+        & a {
+            color: white;
+        }
+    }
+
+    &.color-default, &.color-white {
+        color: @wx-black;
+        border-color: @wx-grey-400;
+        background-color: @wx-white;
+        &:hover:not([disabled]) {
+            background-color: darken(@wx-grey-200, 7.5%);
+        }
+    }
+
+    &.color-grey {
+        color: @wx-white;
+        background-color: @wx-grey-600;
+        &:hover:not([disabled]) {
+            background-color: darken(@wx-grey-500, 7.5%);
+        }
+    }
+
+    &.color-primary, &.color-blue {
+        background-color: @wx-blue;
+        &:hover:not([disabled]) {
+            background-color: darken(@wx-blue, 15%);
+        }
+    }
+
+    &.color-accent, &.color-purple {
+        background-color: @wx-purple;
+        &:hover:not([disabled]) {
+            background-color: darken(@wx-purple, 15%);
+        }
+    }
+
+    &.color-success, &.color-green {
+        background-color: @wx-green;
+
+        &:hover:not([disabled]) {
+            background-color: darken(@wx-green, 15%);
+        }
+    }
+
+    &.color-warning, &.color-yellow {
+        background-color: @wx-orange;
+
+        &:hover:not([disabled]) {
+            background-color: darken(@wx-orange, 15%);
+        }
+
+    }
+
+    &.color-danger, &.color-red {
+        background-color: @wx-red;
+
+        &:hover:not([disabled]) {
+            background-color: darken(@wx-red, 15%);
+        }
+    }
+}
+
+.wx-button-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &.invisible {
+        visibility: hidden;
+    }
+}

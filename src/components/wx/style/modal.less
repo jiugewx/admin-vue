@@ -1,0 +1,327 @@
+@import "../../style-less/variables-mixins";
+
+.wx-modal {
+    font-size: 14px;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: fade(@wx-black, 50%);
+    display: table;
+    transition: opacity @transition-duration ease;
+
+    &.wx-modal-large {
+        .wx-modal-container.center {
+            width: 910px;
+        }
+    }
+    &.wx-modal-normal {
+        .wx-modal-container.center {
+            width: 720px;
+        }
+    }
+    &.wx-modal-middle {
+        .wx-modal-container.center {
+            width: 528px;
+        }
+    }
+    &.wx-modal-small {
+        .wx-modal-container.center {
+            width: 320px;
+        }
+    }
+}
+
+body.wx-modal-open {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+body.wx-modal-open-full {
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+.wx-modal-wrapper {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.wx-modal-container {
+    outline: none;
+    margin: 0 auto;
+    padding: 0;
+    box-shadow: 0 2px 8px alpha(black, 0.33);
+    transition: all @transition-duration ease;
+    &.center {
+        border-radius: 5px;
+        background-color: white;
+        .wx-modal-body {
+            max-height: 70vh;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+    }
+    &.full-screen {
+        height: 100vh;
+        width: 100vw;
+        overflow: auto;
+        background-color: #eff0f4; //添加区分色
+        .left-float {
+            position: absolute;
+            left: 0;
+            z-index: 1000;
+            padding: 5px;
+            .wx-button {
+                margin-right: 10px;
+            }
+        }
+        .wx-modal-actions {
+            position: absolute;
+            right: 0;
+            top: 50px;
+            z-index: 1000;
+            margin: 0;
+            padding: 0;
+            li {
+                list-style: none;
+                display: table;
+                margin-bottom: 10px;
+            }
+            .action-item {
+                display: table-cell;
+                vertical-align: middle;
+                margin-bottom: 10px;
+                padding: 10px;
+                width: 40px;
+                height: 80px;
+                font-size: @font-size-middle;
+                text-align: center;
+                border-bottom-left-radius: 10px;
+                border-top-left-radius: 10px;
+                &.red {
+                    color: @wx-white;
+                    background-color: @wx-red;
+                }
+                &.yellow {
+                    color: @wx-white;
+                    background-color: @wx-yellow;
+                }
+                &.green {
+                    color: @wx-white;
+                    background-color: @wx-green;
+                }
+                &.blue {
+                    color: @wx-white;
+                    background-color: @wx-blue;
+                }
+            }
+        }
+        .wx-modal-footer {
+            padding: 10px;
+            margin: 0;
+            &, [slot] {
+                display: flex;
+                justify-content: flex-start;
+            }
+        }
+    }
+}
+
+.wx-modal-header {
+    display: flex;
+    align-items: center;
+    background-color: @wx-blue-900;
+    color: white;
+    padding: 10px 0;
+    padding-left: 10px;
+    padding-right: 20px;
+    .wx-modal-header-text {
+        flex-grow: 1;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        margin: 0;
+        font-weight: normal;
+    }
+    .wx-modal-header-close {
+        font-size: 30px;
+        cursor: pointer;
+        margin-right: -5px;
+        margin-left: 10px;
+    }
+
+    .wx-modal-close-button {
+        margin-top: -12px;
+        margin-right: -8px;
+        margin-left: auto;
+        &:hover:not([disabled]),
+        body[modality="keyboard"] &:focus {
+            .wx-icon {
+                color: alpha(black, 0.8);
+            }
+        }
+        .wx-icon {
+            font-size: 20px;
+            color: alpha(black, 0.4);
+        }
+        &[disabled] {
+            opacity: 0.5;
+        }
+    }
+}
+
+.wx-modal-body {
+    // padding: 0;
+    padding: 8px 0;
+}
+
+.wx-modal-footer {
+    padding: 10px 0;
+    padding-right: 20px;
+    border-top: 1px solid @wx-grey-400;
+    &,
+    [slot] {
+        display: flex;
+        justify-content: flex-end;
+    }
+    .wx-modal-footer-left,
+    [slot].wx-modal-footer-left {
+        justify-content: flex-start;
+    }
+    .wx-button {
+        margin-left: 8px;
+        &:first-child {
+            margin-left: 0;
+        }
+    }
+}
+
+
+// 淡入淡出效果
+.wx-modal-fade-enter,
+.wx-modal-fade-leave {
+    opacity: 0;
+}
+
+// 缩放效果
+.wx-modal-scale-enter,
+.wx-modal-scale-leave {
+    opacity: 0;
+}
+
+// 缩放的情况
+.wx-modal-scale-enter .wx-modal-container,
+.wx-modal-scale-leave .wx-modal-container {
+    transform: scale(1.1);
+}
+
+// 确认窗口，弹出窗口的body
+.wx-confirm-body,.wx-alert-body {
+    padding: 20px;
+    color: @wx-grey-500;
+    text-align: left;
+    font-size: 16px;
+}
+// message
+.wx-modal-message {
+    position: fixed;
+    z-index: 1300;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 14px;
+    background-color: @bk-base;
+    display: table;
+    &.wx-modal-hide {
+        display: none;
+    }
+    .wx-message-wrapper {
+        display: table-cell;
+        vertical-align: middle;
+        .wx-message-container {
+            display: block;
+            margin: 0 auto;
+            text-align: center;
+            &.large {
+                max-width: 910px;
+            }
+            &.normal {
+                max-width: 720px;
+            }
+            &.middle {
+                max-width: 528px;
+            }
+            &.small {
+                max-width: 320px;
+            }
+            .wx-message-body {
+                display: inline-block;
+                padding: 10px 20px;
+                border-radius: 5px;
+                color: @white;
+                &.grey {
+                    background-color: fade(@black, 50%);
+                }
+                &.red {
+                    background-color: fade(@red, 70%);
+                }
+                &.blue {
+                    background-color: fade(@blue, 80%);
+                }
+                &.yellow {
+                    background-color: fade(@yellow, 80%);
+                }
+                &.green {
+                    background-color: fade(@green, 80%);
+                }
+                &.white {
+                    background-color: @white;
+                    color: @black;
+                    border: 1px solid @grey;
+                    border-radius: 0;
+                }
+            }
+        }
+    }
+}
+// 加载条
+.wx-loading {
+    position: fixed;
+    z-index: @zIndex4;
+    width: 100%;
+    height: 100%;
+    top: 50%;
+    left: 50%;
+    .wx-loading-container {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        top: -50%;
+        left: -50%;
+        text-align: center;
+        background-color: rgba(255, 255, 255, 0);
+        .wx-loading-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            .wx-loading-image {
+                position: relative;
+                top: -50px;
+                left: -50%;
+                height: 100px;
+                width: 320px;
+                padding-top: 80px;
+                background: url('../assets/line_loading.gif') center no-repeat;
+            }
+        }
+    }
+
+}
+
+
+
+

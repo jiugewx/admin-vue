@@ -1,0 +1,150 @@
+//time
+@transition-duration: 0.2s;
+
+/*color*/
+@import "./wx-color";
+
+/*font-size*/
+@font-size-base: 12px;
+@font-size-small: ceil((@font-size-base * 0.85)); // ~10px
+@font-size-small-middle: ceil((@font-size-base * 1.08)); // ~15px
+@font-size-middle: ceil((@font-size-base * 1.15)); // ~16px
+@font-size-large: ceil((@font-size-base * 1.25)); // ~18px
+
+@font-family: Roboto, -apple-system, BlinkMacSystemFont, Arial, Verdana, Helvetica,
+"Microsoft YaHei", "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+"Droid Sans", "Helvetica Neue", sans-serif;
+
+@zIndex1: 1000; // 全屏弹窗
+@zIndex2: 1100; // 小弹窗
+@zIndex3: 1200; // 确认框
+@zIndex4: 1300; // 加载状态
+@zIndex5: 1400; // 浮层提示
+
+//:::::::::::::::::::::::::::: mixins::::::::::::::::::::
+.default-style-mixin() {
+    &.color-red {
+        color: @wx-red;
+    }
+    &.color-yellow {
+        color: @wx-yellow;
+    }
+    &.color-blue {
+        color: @wx-blue;
+    }
+    &.color-deep-blue {
+        color: @wx-blue-900;
+    }
+    &.color-green {
+        color: @wx-green;
+    }
+    &.color-white {
+        color: @wx-white;
+    }
+    &.color-black {
+        color: @wx-black;
+    }
+    &.font-mini {
+        font-size: @font-size-small;
+    }
+    &.font-small {
+        font-size: @font-size-base;
+    }
+    &.font-middle {
+        font-size: @font-size-middle;
+    }
+    &.font-large {
+        font-size: @font-size-large;
+    }
+}
+
+.disable-user-select() {
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: default;
+}
+
+.truncate-text() {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.font-smoothing() {
+    -webkit-font-smoothing: antialiased;
+}
+
+.wx-text-display-4() {
+    font-size: 112px;
+    font-weight: 300;
+    line-height: 1em;
+    letter-spacing: -0.01em;
+}
+
+.wx-text-display-3() {
+    font-size: 56px;
+    font-weight: 400;
+    line-height: 1em;
+    letter-spacing: -0.005em;
+}
+
+.wx-text-display-2() {
+    font-size: 45px;
+    font-weight: 400;
+    line-height: 1.066em;
+}
+
+.wx-text-display-1() {
+    font-size: 34px;
+    font-weight: 400;
+    line-height: 1.176em;
+}
+
+.wx-text-headline() {
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1.33em;
+}
+
+.wx-text-title() {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1em;
+    letter-spacing: 0.005em;
+}
+
+.wx-text-subhead() {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.75em;
+    letter-spacing: 0.01em;
+}
+
+.wx-text-body() {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.71em;
+    letter-spacing: 0.01em;
+}
+
+.wx-text-caption() {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1em;
+    letter-spacing: 0.02em;
+}
+
+.wx-text-menu() {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1em;
+}
+
+.wx-text-button() {
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 500;
+    line-height: 1.71em;
+    letter-spacing: 0.02em;
+}
+
