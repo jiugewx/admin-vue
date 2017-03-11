@@ -1,14 +1,14 @@
 <template>
-    <div>
-        <ueditor :data="ue" ref="u1"></ueditor>
-        <ueditor :data="ue" ref="u2"></ueditor>
-        <ueditor :data="ue" ref="u3"></ueditor>
-        <ueditor :data="ue" ref="u4"></ueditor>
-        <ueditor :data="ue" ref="u1"></ueditor>
+    <!--这个是所有frame页面的入口-->
+    <div class="gray-bk hide-scroll auto-minWidth">
+        <router-view></router-view><!--这是全局的路由-->
+        <!--加载状态提示-->
+        <!--<wx-loading v-ref:loading></wx-loading>-->
+        <!--&lt;!&ndash; 消息浮层 &ndash;&gt;-->
+        <!--<wx-message v-ref:msg></wx-message>-->
     </div>
 </template>
 <script>
-    import ueditor from "../../src/components/form/ueditor.vue";
     export default{
         data(){
             return {
@@ -24,3 +24,4 @@
         }
     }
 </script>
+n

@@ -35,7 +35,7 @@
         props: {
             data: {type: Object, default: {}}
         },
-        data () {
+        data:function () {
             return {
                 uuid: wx.fn.createUuid("UE"),
                 name: '',

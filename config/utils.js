@@ -160,3 +160,14 @@ exports.commonPlugins = function (options) {
 exports.envPlugin = function () {
     return new webpack.DefinePlugin({"process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV)});
 };
+
+exports.babelOption = function () {
+    return new webpack.LoaderOptionsPlugin({
+        // test: /\.js$/, // may apply this only for some modules
+        options: {
+            babel: {
+                presets: ['es2015'],
+            },
+        }
+    })
+};
