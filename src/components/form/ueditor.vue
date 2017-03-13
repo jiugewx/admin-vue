@@ -14,7 +14,7 @@
     import rootFormBase from '../base/root-form-base.mixin';
 
     export default{
-        data () {
+        data:function () {
             return {
                 uuid: wx.fn.createUuid("UE"),
                 name: "",

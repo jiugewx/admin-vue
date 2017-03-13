@@ -13,9 +13,10 @@ function resolve(dir) {
     return path.join(__dirname, '..', dir)
 }
 
-var plugins = [utils.envPlugin()];
+var plugins = [utils.envPlugin(),utils.babelOption()];
 plugins = plugins.concat(utils.htmlPlugins(entryOptions));
 plugins = plugins.concat(utils.commonPlugins(entryOptions));
+
 
 module.exports = {
     entry: entryOptions.entry,
@@ -42,6 +43,7 @@ module.exports = {
             {
                 test: /\.js$/,
                 loader: 'babel-loader',
+                exclude: /node_modules/
             },
             {
                 test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
