@@ -2,15 +2,13 @@
     <div class="wx-modal" v-show="show" :transition="transition" :class="[size]"
             @transitionend="transitionEnd | debounce 100">
         <div class="wx-modal-wrapper" @click="close" v-el:modal-mask>
-            <div class="wx-modal-container" tabindex="-1" v-el:modal-container :class="{
-                'full-screen':full,
-                'center':!full }">
+            <div class="wx-modal-container center" tabindex="-1" v-el:modal-container>
                 <!-- 非全屏弹窗 有头部 -->
-                <div v-if="!full" class="wx-modal-header">
+                <div id="wx-modal-header" class="wx-modal-header">
                     <span class="wx-modal-header-text">
                         <slot name="header">{{{header}}}</slot>
                     </span>
-                    <span v-if="showCloseButton" class="wx-modal-header-close" @click.stop="close">&times;</span>
+                    <span class="wx-modal-header-close" @click.stop="close">&times;</span>
                 </div>
                 <div id="wx-modal-body" class="wx-modal-body">
                     <slot>
@@ -18,13 +16,10 @@
                     </slot>
                 </div>
                 <!-- 全屏时隐藏这个按钮 -->
-                <div v-if='!full && !hideFooter'>
-                    <div class="wx-modal-footer" v-if="!hideFooter">
-                        <slot name="footer">
-                            <!--footer的内容-->
-                        </slot>
+                <div id="wx-modal-footer" class="wx-modal-footer">
+                    <slot name="footer">
                         <wx-button @click.stop="close" v-if="dismissible && cancel" :color="white">取消</wx-button>
-                    </div>
+                    </slot>
                 </div>
                 <div class="focus-redirector" @focus="redirectFocus" tabindex="0"></div>
             </div>
@@ -62,10 +57,6 @@
             transition: {
                 type: String,
                 default: 'wx-modal-scale', // 'wx-modal-scale', or 'wx-modal-fade'
-            },
-            showCloseButton: {
-                type: Boolean,
-                default: true
             },
             hideFooter: {
                 type: Boolean,

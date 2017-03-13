@@ -78,22 +78,4 @@
     @red: #f44336;
     @blue: #29c3f6;
     @yellow: #ff9800;
-    @green: #4caf50;
-
-
-
-    .wx-modal-fade-enter,
-    .wx-modal-fade-leave {
-        opacity: 0;
-    }
-
-    .wx-modal-scale-enter,
-    .wx-modal-scale-leave {
-        opacity: 0;
-    }
-
-    .wx-modal-scale-enter .wx-modal-container,
-    .wx-modal-scale-leave .wx-modal-container {
-        transform: scale(1.1);
-    }
 </style>
