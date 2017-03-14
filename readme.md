@@ -19,6 +19,19 @@
 ### test:   单元测试
 
 ## 二、组件：
+
+### 高度抽象几个类
+
+#### 1、列表类
+searchbox       //
+table：{
+    header:
+    content:    
+}
+pagerNation
+
+
+
 ### 1、所有的组件都需要有以下方法
 getInstance                     获取组件实例 （）
 
@@ -56,7 +69,7 @@ options
 
 ### 4、外挂属性
 config作为Ueditor、laydate、baiduMap组件的属性
-外挂组件的资源文件需要作为动态引入
+外挂组件的资源文件需要作为动态引入,使用script标签动态创建，采用Promise再进行链式调用
 
 ### 5、显示组件（只做显示的组件）
 必须包含的方法：
@@ -79,10 +92,18 @@ message                         浮层            zindex == 1500
 button                          按钮
 
 
-## 三、必须要有一个全局方法库
-Ajax,log,fn,props,Object(FormObject,MessageObject,Validator,TaskObject)
+## 三、必须要有一个全局方法库 utils
+Ajax,               支持Promise
+log,                日志
+fn,                 工具
+props,              属性
+FormObject,         表单类
+MessageObject,      消息类
+Validator,          验证类
+TaskObject,         Promise
+EventObject,        事件对象
 
-## 四、组装为Iframe技术框架
+## 四、组装为Iframe技术框架  [满足产品需求，可能存在多个独立页面之间的联动显示]
 1、必须有父子frame通讯方法
 2、必须有子组件之间的通讯方式
 3、每个子组件要有一个独立的标识。
