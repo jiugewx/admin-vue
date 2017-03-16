@@ -3,6 +3,7 @@
  */
 
 // 处理资源文件的加载，以及基础组件的加载；（这是一个面向切面的过程）
+import "../error_upload.js"
 import "../../src/style/style.less";
 import "../../src/utils/index";
 import App from "./App.vue";
