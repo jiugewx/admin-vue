@@ -35,13 +35,19 @@ table：{                                 表格
 }
 pagerNation                              页码条
 ```
-### 0、group组件
+### 2、提交信息类
 
+#### 1、group 表单群
 ```
-append(moduleName,options,index)        追加组件（组件名称，组件的配置，组件的位置）
-remove(name)                            删除组件（字段名称）
-removeById(index)                       删除组件（组件的位置）
-getModule(name)    
+append(components,index)                    追加组件（组件的配置，组件的位置）
+removeByName(name)                          删除组件（字段名称）
+removeByIndex(index)                        删除组件（组件的位置）
+showModule(name)                            显隐组件
+hideModule(name)
+replaceByIndex(index)                       替换组件
+replaceByName(name)
+getChildIndex(name)                         获取子组件的位置
+getChild(name)                              获取某个子组件
 ```                  
 
 
