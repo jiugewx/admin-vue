@@ -4,7 +4,7 @@
  */
 
 // 构造table的头部内容
-wx.Header = function(text) {
+Utils.Header = function(text) {
     var Header = function(text) {
         this.text = text; // 头部的内容
         this.type = "text"; // 字段类型，"text","sort","filter","handle";

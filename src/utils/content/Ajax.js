@@ -2,7 +2,7 @@
  * Created by xinye on 2016/12/29.
  */
 
-import wx from "./base";
+import Utils from "../base";
 
 // 构建Ajax
 function Ajax(options) {
@@ -23,7 +23,7 @@ function Ajax(options) {
         timeout_flag = null, //超时标识
         xhr = null; //xhr对角
 
-    return new wx.Task(function (resolve, reject) {
+    return new Utils.Promise(function (resolve, reject) {
 
         //编码数据
         function setData() {
@@ -237,10 +237,11 @@ function Ajax(options) {
         }
     })
 }
-wx["Ajax"] = Ajax;
+
+Utils["Ajax"] = Ajax;
 
 // ajax请求
-wx.Ajax = {
+Utils.Ajax = {
     BeforeSend: function () {
 
     },
@@ -248,107 +249,107 @@ wx.Ajax = {
     _caches: {},
 
     Get: function (url, params, success, error) {
-        var urlx = wx.Config.Host + url;
+        var urlx = Utils.Config.Host + url;
 
-        if ( wx.Ajax._caches[urlx] ) {
-            success && success(wx.Ajax._caches[urlx]);
-            return wx.Ajax._caches[urlx];
+        if ( Utils.Ajax._caches[urlx] ) {
+            success && success(Utils.Ajax._caches[urlx]);
+            return Utils.Ajax._caches[urlx];
         }
 
-        wx.log('请求参数:', params || '空');
+        Utils.log('请求参数:', params || '空');
 
-        return wx.Ajax({
+        return Utils.Ajax({
             type: "get",
             url: urlx,
-            timeOut: wx.Config.timeout,
-            headers: wx.Config.headers,
+            timeOut: Utils.Config.timeout,
+            headers: Utils.Config.headers,
             params: params,
-            before: wx.Ajax.BeforeSend,
+            before: Utils.Ajax.BeforeSend,
         }).then(
             function (RqData) {
                 success && success(RqData.data.data);
-                return wx.Task.resolve(RqData.data.data);
+                return Utils.Promise.resolve(RqData.data.data);
             }
         ).fail(function (status, RqData) {
-            wx.log('get异常', status, RqData);
+            Utils.log('get异常', status, RqData);
             error && error(status, RqData);
         })
     },
 
     Post: function (url, params, success, error) {
-        var urlx = wx.Config.Host + url;
+        var urlx = Utils.Config.Host + url;
 
-        if ( wx.Ajax._caches[urlx] ) {
-            success && success(wx.Ajax._caches[urlx]);
-            return wx.Ajax._caches[urlx];
+        if ( Utils.Ajax._caches[urlx] ) {
+            success && success(Utils.Ajax._caches[urlx]);
+            return Utils.Ajax._caches[urlx];
         }
 
-        wx.log('请求参数:', params || '空');
+        Utils.log('请求参数:', params || '空');
 
         return Ajax({
             type: "post",
             url: urlx,
-            timeOut: wx.Config.timeout,
-            headers: wx.Config.headers,
+            timeOut: Utils.Config.timeout,
+            headers: Utils.Config.headers,
             params: {
                 'body': JSON.stringify(params)
             },
-            before: wx.Ajax.BeforeSend,
+            before: Utils.Ajax.BeforeSend,
         }).then(
             function (RqData) {
                 success && success(RqData.data.data);
-                return wx.Task.resolve(RqData.data.data);
+                return Utils.Promise.resolve(RqData.data.data);
             }
         ).fail(function (status, RqData) {
-            wx.log('post异常', status, RqData);
+            Utils.log('post异常', status, RqData);
             error && error(status, RqData);
         })
     },
 
     GetLocalJson: function (url, success, error) {
-        if ( wx.Ajax._caches[url] ) {
-            success && success(wx.Ajax._caches[url]);
-            return wx.Ajax._caches[url];
+        if ( Utils.Ajax._caches[url] ) {
+            success && success(Utils.Ajax._caches[url]);
+            return Utils.Ajax._caches[url];
         }
         return Ajax({
             type: "get",
             url: url,
-            timeOut: wx.Config.timeout,
-            headers: wx.Config.headers,
-            before: wx.Ajax.BeforeSend,
+            timeOut: Utils.Config.timeout,
+            headers: Utils.Config.headers,
+            before: Utils.Ajax.BeforeSend,
         }).then(
             function (RqData) {
                 success && success(RqData.data);
-                return wx.Task.resolve(RqData.data);
+                return Utils.Promise.resolve(RqData.data);
             }
         ).fail(function (status, RqData) {
-            wx.log('getLocalJson异常', status, RqData);
+            Utils.log('getLocalJson异常', status, RqData);
             error && error(status, RqData);
         })
     },
 
     GetJsonp: function (url, success, error) {
 
-        if ( wx.Ajax._caches[url] ) {
-            success && success(wx.Ajax._caches[url]);
-            return wx.Ajax._caches[url];
+        if ( Utils.Ajax._caches[url] ) {
+            success && success(Utils.Ajax._caches[url]);
+            return Utils.Ajax._caches[url];
         }
 
         return Ajax({
             dataType: "jsonp",
             url: url,
-            timeOut: wx.Config.timeout,
-            before: wx.Ajax.BeforeSend,
+            timeOut: Utils.Config.timeout,
+            before: Utils.Ajax.BeforeSend,
         }).then(
             function (RqData) {
                 success && success(RqData);
-                return wx.Task.resolve(RqData);
+                return Utils.Promise.resolve(RqData);
             }
         ).fail(function (status, RqData) {
-            wx.log('getJsonp异常', status, RqData);
+            Utils.log('getJsonp异常', status, RqData);
             error && error(status, RqData);
         })
     }
 };
 
-export default wx
+export default Utils

@@ -16,7 +16,7 @@
     export default{
         data:function () {
             return {
-                uuid: wx.fn.createUuid("UE"),
+                uuid: Utils.fn.createUuid("UE"),
                 name: "",
                 value: [],
                 defaultValue: [],
@@ -43,8 +43,8 @@
                     return false;
                 }
 
-                // 必须返回wx.DataObject的对象,可以是一个条件,也可以是组合条件
-                var condition = new wx.DataObject();
+                // 必须返回Utils.DataObject的对象,可以是一个条件,也可以是组合条件
+                var condition = new Utils.DataObject();
                 condition.extends(ueditorData);
 
                 return condition;

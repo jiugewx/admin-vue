@@ -3,7 +3,7 @@
  *
  */
 
-import wx from "./base";
+import Utils from "../base";
 
 function isFormObject(dataObject) {
     return dataObject && dataObject.toQuery
@@ -22,14 +22,14 @@ var FPO = FormObject.prototype;
 FPO.merge = function (dataObject) {
     if ( isFormObject(dataObject) ) {
         var query = dataObject.toQuery();
-        this.data = wx.fn.mergeObject(this.data, query);
+        this.data = Utils.fn.mergeObject(this.data, query);
     }
 
     return this;
 };
 
 FPO.append = function (name, value) {
-    if ( wx.fn.isUndefined(name) || wx.fn.isUndefined(value) ) {
+    if ( Utils.fn.isUndefined(name) || Utils.fn.isUndefined(value) ) {
         return this;
     }
 
@@ -37,7 +37,7 @@ FPO.append = function (name, value) {
     if ( this._Empty || ! empty ) {
         var query = {};
         query[name] = value;
-        this.data = wx.fn.mergeObject(this.data, query);
+        this.data = Utils.fn.mergeObject(this.data, query);
     }
 
     return this;
@@ -79,6 +79,6 @@ FPO.toData = function () {
     return this.data;
 };
 
-wx["FormObject"] = FormObject;
+Utils["FormObject"] = FormObject;
 
-export default wx
+export default Utils

@@ -7,26 +7,26 @@
         // 设置好ueditor的默认地址
         window["UEDITOR_HOME_URL"] = "/libs/Ueditor/";
 
-        wx.fn.getScriptResource("/libs/Ueditor/ueditor.config.js", script2);
+        Utils.fn.getScriptResource("/libs/Ueditor/ueditor.config.js", script2);
 
         function script2() {
-            wx.fn.getScriptResource("/libs/Ueditor/ueditor.all.js", script3);
+            Utils.fn.getScriptResource("/libs/Ueditor/ueditor.all.js", script3);
         }
 
         function script3() {
-            wx.fn.getScriptResource("/libs/Ueditor/lang/zh-cn/zh-cn.js", script4);
+            Utils.fn.getScriptResource("/libs/Ueditor/lang/zh-cn/zh-cn.js", script4);
         }
 
         function script4() {
-            wx.fn.getScriptResource("/libs/Ueditor/kityformula-plugin/addKityFormulaDialog.js", script5);
+            Utils.fn.getScriptResource("/libs/Ueditor/kityformula-plugin/addKityFormulaDialog.js", script5);
         }
 
         function script5() {
-            wx.fn.getScriptResource("/libs/Ueditor/kityformula-plugin/getKfContent.js", script6);
+            Utils.fn.getScriptResource("/libs/Ueditor/kityformula-plugin/getKfContent.js", script6);
         }
 
         function script6() {
-            wx.fn.getScriptResource("/libs/Ueditor/kityformula-plugin/defaultFilterFix.js", callback)
+            Utils.fn.getScriptResource("/libs/Ueditor/kityformula-plugin/defaultFilterFix.js", callback)
         }
     }
 
@@ -37,7 +37,7 @@
         },
         data:function () {
             return {
-                uuid: wx.fn.createUuid("UE"),
+                uuid: Utils.fn.createUuid("UE"),
                 name: '',
                 value: '',
                 readyFlag: false,  //本组件ready的标志

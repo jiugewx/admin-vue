@@ -2,7 +2,7 @@
  * Created by xinye on 2016/12/29.
  */
 
-import wx from "./base";
+import wx from "../base";
 
 var Validator = function (fnValidate, message) {
     this.validate = fnValidate;  // 校验方法
@@ -35,7 +35,7 @@ VPO.getValue = function () {
 // 静态方法
 Validator.Require = function (message) {
     var validate = function (val) {
-        if ( wx.fn.isUndefined(val) ) {
+        if ( Utils.fn.isUndefined(val) ) {
             return false;
         }
 
@@ -48,7 +48,7 @@ Validator.Require = function (message) {
 
 Validator.Phone = function (message) {
     var validate = function (val) {
-        if ( wx.fn.isUndefined(val) ) {
+        if ( Utils.fn.isUndefined(val) ) {
             return false;
         }
 
@@ -61,7 +61,7 @@ Validator.Phone = function (message) {
 
 Validator.Name = function (message) {
     var validate = function (val) {
-        if ( wx.fn.isUndefined(val) ) {
+        if ( Utils.fn.isUndefined(val) ) {
             return false;
         }
 
@@ -74,7 +74,7 @@ Validator.Name = function (message) {
 
 Validator.Password = function (message) {
     var validate = function (val) {
-        if ( wx.fn.isUndefined(val) ) {
+        if ( Utils.fn.isUndefined(val) ) {
             return false;
         }
 
@@ -87,7 +87,7 @@ Validator.Password = function (message) {
 
 Validator.Length = function (min, max, message) {
     var validate = function (val) {
-        if ( wx.fn.isUndefined(val) ) {
+        if ( Utils.fn.isUndefined(val) ) {
             return false;
         }
 
@@ -98,6 +98,6 @@ Validator.Length = function (min, max, message) {
     return new Validator(message, validate);
 };
 
-wx["Validator"] = Validator;
+Utils["Validator"] = Validator;
 
-export default wx
+export default Utils

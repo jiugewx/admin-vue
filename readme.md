@@ -30,6 +30,12 @@ table：{
 }
 pagerNation
 
+### 0、group组件
+
+append(moduleName,options,index)        追加组件（组件名称，组件的配置，组件的位置）
+remove(name)                            删除组件（字段名称）
+removeById(index)                       删除组件（组件的位置）
+getModule(name)                         
 
 
 ### 1、所有的组件都需要有以下方法

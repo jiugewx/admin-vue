@@ -2,7 +2,7 @@
  * 本方法本质是一个 promise 只是简易了
  */
 
-import wx from "./base";
+import Utils from "../base";
 
 var PENDING = undefined,
     FULFILLED = 1,
@@ -50,11 +50,11 @@ var executeAll = function(val) {
     self['_resolves'] = self['_rejects'] = undefined;
 };
 
-var Task = function(resolver) {
+var Promise = function(resolver) {
     if (!isFunction(resolver))
         throw new TypeError('You must pass a resolver function as the first argument to the promise constructor');
-    if (!(this instanceof Task)) {
-        return new Task(resolver);
+    if (!(this instanceof Promise)) {
+        return new Promise(resolver);
     }
 
     var self = this;
@@ -76,12 +76,12 @@ var Task = function(resolver) {
     resolver(resolve, reject);
 };
 
-var proto = Task.prototype;
+var proto = Promise.prototype;
 
 proto.then = proto['then'] = function(onFulfilled, onRejected) {
     var self = this;
-    // 每次返回一个Task，保证是可thenable的
-    return Task(function(resolve, reject) {
+    // 每次返回一个Promise，保证是可thenable的
+    return Promise(function(resolve, reject) {
 
         function callback(value) {
             var result = isFunction(onFulfilled) && onFulfilled(value) || value;
@@ -118,19 +118,19 @@ proto.fail = proto['fail'] = function(onRejected) {
     return this.then(undefined, onRejected)
 };
 
-// 用于快速启动一个Task链
-Task.start = function(arg) {
-    return Task(function(resolve, reject) {
+// 用于快速启动一个Promise链
+Promise.resolve = function(arg) {
+    return Promise(function(resolve, reject) {
         resolve(arg)
     })
 };
 
 // 开启多个task的同时运行（最终的结果是resolved还是rejected)
-Task.race = function(tasks) {
+Promise.race = function(tasks) {
     if (!isArray(tasks)) {
         throw new TypeError('You must pass an array to race.');
     }
-    return Task(function(resolve, reject) {
+    return Promise(function(resolve, reject) {
         var i = 0,
             len = tasks.length;
 
@@ -148,6 +148,6 @@ Task.race = function(tasks) {
     });
 };
 
-wx["Task"] = Task;
+Utils["Promise"] = Promise;
 
-export default wx
+export default Utils
