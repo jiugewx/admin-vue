@@ -1,7 +1,6 @@
 <template>
-    <div class="gray-bk hide-scroll auto-minWidth">
+    <div>
         <router-view></router-view>
-        以上是路由
     </div>
 </template>
 <script>

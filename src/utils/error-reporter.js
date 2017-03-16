@@ -155,6 +155,8 @@
                     }
                 });
 
+                // console.log("把错误信息发送给后台",defaults);
+
             }, 0);
 
             return true;   // 错误不会console浏览器上,如需要，可将这样注释
@@ -166,13 +168,9 @@
 
 })();
 
-/*===========================
- errorReport AMD Export
- ===========================*/
 if (typeof(module) !== 'undefined') {
     module.exports = window['errorReport'];
-}
-else if (typeof define === 'function' && define.amd) {
+} else if (typeof define === 'function' && define.amd) {
     define([], function () {
         'use strict';
         return window['errorReport'];
