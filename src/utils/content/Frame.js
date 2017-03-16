@@ -1,8 +1,9 @@
 /**
  * Created by wangxin on 2017/3/7.
  */
+import Utils from "../base";
 
-wx.Frame = {
+Utils.Frame = {
     openNewFrame: function (page, data, refreshType) {
         var myHash = page.hash;           // 本页面的hash值,如"!#/user/user-student-index/detail/{id}";
 
@@ -55,3 +56,5 @@ wx.Frame = {
         return null;
     }
 };
+
+module.exports = Utils;

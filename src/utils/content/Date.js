@@ -2,10 +2,10 @@
  * Created by xinye on 2016/12/29.
  */
 
-import wx from "./base";
+import Utils from "../base";
 
 // 日期操作方法
-wx.Date = {
+Utils.Date = {
     // 添加0
     addZero: function (i) {
         if (i < 10) {
@@ -33,11 +33,11 @@ wx.Date = {
         var s = date.getSeconds();
 
 
-        month = wx.Date.addZero(month);
-        day = wx.Date.addZero(day);
-        h = wx.Date.addZero(h);
-        m = wx.Date.addZero(m);
-        s = wx.Date.addZero(s);
+        month = Utils.Date.addZero(month);
+        day = Utils.Date.addZero(day);
+        h = Utils.Date.addZero(h);
+        m = Utils.Date.addZero(m);
+        s = Utils.Date.addZero(s);
 
         if (options.type == 'YYYY-MM-DD') {
             return year + "-" + month + "-" + day
@@ -102,4 +102,4 @@ wx.Date = {
     }
 };
 
-export default wx
+export default Utils

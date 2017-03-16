@@ -6,7 +6,7 @@
 export default {
     data () {
         return {
-            uuid: wx.fn.createUuid("DATA"),
+            uuid: Utils.fn.createUuid("DATA"),
             name: "",
             value: "",    // value
             defaultValue: "",
@@ -21,7 +21,7 @@ export default {
                     name: "", // [必须]查询条件的参数名符合条件组件(如多级联动)可自定义数据结构
                     value: "", //[必须]初始化的值
                     cookieName: "",
-                    template: wx.Prop.Type.SEARCH_CONDITION  // [必须]查询条件或提交数据(新增,编辑)
+                    template: Utils.Prop.Type.SEARCH_CONDITION  // [必须]查询条件或提交数据(新增,编辑)
                     // 其他默认值
                     //require:@Function(value) 或 message
                 }
@@ -32,14 +32,14 @@ export default {
         _init: function () {
             // 初始化默认值
             this.name = this.data.name || this.name;
-            this.defaultValue = wx.fn.deepCopy(this.data.value);
-            this.value = wx.fn.deepCopy(this.data.value);
+            this.defaultValue = Utils.fn.deepCopy(this.data.value);
+            this.value = Utils.fn.deepCopy(this.data.value);
 
             // 设置默认的validators
             this.data.validators = this.data.validators || [];
 
             if ( this.data.require ) {
-                this.data.validators.unshift(new wx.Validator.Require(this.data.require));
+                this.data.validators.unshift(new Utils.Validator.Require(this.data.require));
             }
 
         },
@@ -52,14 +52,14 @@ export default {
             return this.message;
         },
         getMessageData: function () {
-            return new wx.MessageObject(this.name, this.message)
+            return new Utils.MessageObject(this.name, this.message)
         },
         getName: function () {
             return this.name;
         },
         getValue: function () {
             this.value = this._getValue();
-            // wx.log("[getValue]name:"+this.name+"[value]:"+JSON.stringify(this.value));
+            // Utils.log("[getValue]name:"+this.name+"[value]:"+JSON.stringify(this.value));
             return this.value;
         },
         // 默认的子类getValue方法
@@ -82,7 +82,7 @@ export default {
                     this.message = this.data.validators[i].getMessage();
                     // 如果Validator对象存在newValue
                     var newValue = this.data.validators[i].newValue;
-                    if ( ! wx.fn.isUndefined(newValue) ) {
+                    if ( ! Utils.fn.isUndefined(newValue) ) {
                         this.reset(newValue);
                     }
                     return false;
@@ -105,7 +105,7 @@ export default {
             }
 
             if ( this.data.cookieName && this.data.cookieName != "" ) {
-                wx.fn.setCookie(this.data.cookieName, value);
+                Utils.fn.setCookie(this.data.cookieName, value);
                 this.defaultValue = value;
             }
 
@@ -114,7 +114,7 @@ export default {
         // 子类重写
         _getData: function () {
             var value = this.getValue();
-            return new wx.DataObject(this.name, value);
+            return new Utils.DataObject(this.name, value);
         },
         // 移动到可见区
         moveIntoView: function (name) {
@@ -125,18 +125,18 @@ export default {
         },
         // [必须]重置组件状态操作
         reset: function (data) {
-            var oldValue = wx.fn.deepCopy(this.value);
+            var oldValue = Utils.fn.deepCopy(this.value);
 
             // 恢复默认值
-            if ( wx.fn.isObject(data) ) {
+            if ( Utils.fn.isObject(data) ) {
                 // 默认,对象重置,一个组件可能包含多个key,value子组件,
-                this.value = wx.fn.isUndefined(data[this.name]) ? this.defaultValue : data[this.name];
+                this.value = Utils.fn.isUndefined(data[this.name]) ? this.defaultValue : data[this.name];
             } else {
                 // 未定义,使用默认值
-                this.value = wx.fn.isUndefined(data) ? this.defaultValue : data;
+                this.value = Utils.fn.isUndefined(data) ? this.defaultValue : data;
             }
 
-            // wx.log("[base_data][" + this.name + "]reset: "+ oldValue + "=>" + this.value);
+            // Utils.log("[base_data][" + this.name + "]reset: "+ oldValue + "=>" + this.value);
             this.message = "";
         }
     },

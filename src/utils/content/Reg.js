@@ -2,10 +2,10 @@
  * Created by wangxin on 2017/2/7.
  */
 
-import wx from "./base";
+import Utils from "../base";
 
 function validateFunction(Reg, value, FailCallback) {
-    if ( Thu.fn.isUndefined(value) ) {
+    if ( Utils.fn.isUndefined(value) ) {
         return false;
     }
 
@@ -19,7 +19,7 @@ function validateFunction(Reg, value, FailCallback) {
 }
 
 // 正则库
-wx.Reg = {
+Utils.Reg = {
     // 大于0的整数
     wholeNumber: function (value, FailCallback) {
         return validateFunction(/^[1-9]\d*$/, value, FailCallback);
@@ -58,4 +58,4 @@ wx.Reg = {
     }
 };
 
-export default wx
+export default Utils

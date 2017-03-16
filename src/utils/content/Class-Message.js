@@ -2,7 +2,7 @@
  * Created by wangxin on 2017/3/7.
  */
 
-import wx from "./base";
+import Utils from "../base";
 
 // 这是一个表单class
 var MessageObject = function (name, message, allowedEmpty) {
@@ -15,14 +15,14 @@ var MessageObject = function (name, message, allowedEmpty) {
 var MPO = MessageObject.prototype;
 
 MPO.merge = function (MessageObject) {
-    if ( MessageObject && MessageObject._list && wx.fn.isArray(MessageObject._list) ) {
+    if ( MessageObject && MessageObject._list && Utils.fn.isArray(MessageObject._list) ) {
         this._list = this._list.concat(MessageObject._list)
     }
     return this;
 };
 
 MPO.append = function (name, message) {
-    if ( wx.fn.isUndefined(name) || wx.fn.isUndefined(message) ) {
+    if ( Utils.fn.isUndefined(name) || Utils.fn.isUndefined(message) ) {
         return this;
     }
 
@@ -81,6 +81,6 @@ MPO.getNames = function () {
     return list;
 };
 
-wx["MessageObject"] = MessageObject;
+Utils["MessageObject"] = MessageObject;
 
-export default wx
+export default Utils

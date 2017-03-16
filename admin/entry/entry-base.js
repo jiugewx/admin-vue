@@ -14,6 +14,8 @@ Vue.use(VueRouter);
 
 Vue.config.productionTip = false;
 
+window["Event"] = new Vue(); // 全局可以使用的一个事件实例
+
 function start(routerMap) {
     var router = new VueRouter({
         routes: routerMap
@@ -26,6 +28,7 @@ function start(routerMap) {
         template: '<App/>',
         components: {App}
     });
+
 }
 
 export default {
