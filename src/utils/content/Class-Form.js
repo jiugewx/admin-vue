@@ -1,6 +1,6 @@
 /**
  * Created by xinye on 2016/12/29.
- *
+ * 本类是收集所有的form表单的状态，包括（value,message,validate)
  */
 
 import Utils from "../base";

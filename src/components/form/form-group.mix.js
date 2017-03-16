@@ -60,6 +60,22 @@ export default {
             return this.getInstance();
         },
         /**
+         * 显示某个组件               display = block;
+         * @param name
+         */
+        showModule: function (name) {
+            this.getChild(name).setShow(true);
+            return this.getInstance();
+        },
+        /**
+         * 隐藏某个组件               display = none;
+         * @param name
+         */
+        hideModule: function (name) {
+            this.getChild(name).setShow(false);
+            return this.getInstance();
+        },
+        /**
          * 替换某个子组件          [修改]
          * @param index
          * @param component
@@ -127,13 +143,13 @@ export default {
         /**
          * 获取数据
          */
-        getData:function () {
+        getData: function () {
 
         },
         /**
          * 重置数据
          */
-        reset:function () {
+        reset: function () {
 
         }
     }
