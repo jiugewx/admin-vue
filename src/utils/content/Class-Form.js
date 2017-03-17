@@ -1,19 +1,21 @@
 /**
  * Created by xinye on 2016/12/29.
- * 本类是收集所有的form表单的状态，包括（value,message,validate)
+ * 本类是收集所有的form表单的状态，包括（value,message)
  */
 
 import Utils from "../base";
 
 function isFormObject(dataObject) {
-    return dataObject && dataObject.toQuery
+    // 包含主要方法
+    return dataObject && dataObject.isValidate && dataObject.getData && dataObject.getMessage
 }
 
 // 这是一个表单class
-var FormObject = function (name, value, allowedEmpty) {
+var FormObject = function (name, value, message) {
     this.data = new Object();
-    this._Empty = allowedEmpty || false;
-    this.append(name, value);
+    this.message = new Object();
+    this.appendValue(name, value);
+    this.appendMessage(name, message);
     return this;
 };
 
@@ -21,63 +23,93 @@ var FPO = FormObject.prototype;
 
 FPO.merge = function (dataObject) {
     if ( isFormObject(dataObject) ) {
-        var query = dataObject.toQuery();
-        this.data = Utils.fn.mergeObject(this.data, query);
+        var valid = dataObject.isValidate();
+        var data = dataObject.getData();
+        var message = dataObject.getMessage();
+        this.data = valid ? Utils.fn.mergeObject(this.data, data) : this.data;
+        this.message = valid ? Utils.fn.mergeObject(this.message, message) : this.message;
     }
 
     return this;
 };
 
-FPO.append = function (name, value) {
+FPO.appendValue = function (name, value) {
     if ( Utils.fn.isUndefined(name) || Utils.fn.isUndefined(value) ) {
         return this;
     }
-
-    var empty = ("" + value).trim().length ? false : true;
-    if ( this._Empty || ! empty ) {
-        var query = {};
-        query[name] = value;
-        this.data = Utils.fn.mergeObject(this.data, query);
-    }
-
+    this.data[name] = value;
     return this;
 };
 
-FPO.toQuery = function (toString) {
-    if ( toString ) {
-        var query = [];
-        for (var key in this.data) {
-            var urlData = encodeURI(this.data[key]);
-            // ;/?:@&=+$#
-            urlData = urlData.replace(/\;/g, "%3B"); // 转义url中的;号
-            urlData = urlData.replace(/\//g, "%2F"); // 转义url中的/号
-            urlData = urlData.replace(/\?/g, "%3F"); // 转义url中的?号
-            urlData = urlData.replace(/\:/g, "%3A"); // 转义url中的:号
-            urlData = urlData.replace(/\@/g, "%40"); // 转义url中的@号
-            urlData = urlData.replace(/\&/g, "%26"); // 转义url中的&号
-            urlData = urlData.replace(/\=/g, "%3D"); // 转义url中的=号
-            urlData = urlData.replace(/\+/g, "%2B"); // 转义url中的+号
-            urlData = urlData.replace(/\$/g, "%24"); // 转义url中的$号
-            urlData = urlData.replace(/\#/g, "%23"); // 转义url中的#号
-            query.push(key + "=" + urlData);
-        }
+FPO.appendMessage = function (name, message) {
+    if ( Utils.fn.isUndefined(message) || Utils.fn.isUndefined(message) ) {
+        return this;
+    }
+    this.message[name] = message;
+    return this;
+};
 
-        return query.join('&');
+FPO.getData = function () {
+    var valid = this.isValidate();
+    return valid ? this.data : false
+};
+
+FPO.toQuery = function () {
+    var data = this.getData();
+
+    if ( ! data ) {
+        return ""
     }
 
-    return this.data;
+    var query = [];
+    for (var key in data) {
+        var urlData = encodeURI(data[key]);
+        // ;/?:@&=+$#
+        urlData = urlData.replace(/\;/g, "%3B"); // 转义url中的;号
+        urlData = urlData.replace(/\//g, "%2F"); // 转义url中的/号
+        urlData = urlData.replace(/\?/g, "%3F"); // 转义url中的?号
+        urlData = urlData.replace(/\:/g, "%3A"); // 转义url中的:号
+        urlData = urlData.replace(/\@/g, "%40"); // 转义url中的@号
+        urlData = urlData.replace(/\&/g, "%26"); // 转义url中的&号
+        urlData = urlData.replace(/\=/g, "%3D"); // 转义url中的=号
+        urlData = urlData.replace(/\+/g, "%2B"); // 转义url中的+号
+        urlData = urlData.replace(/\$/g, "%24"); // 转义url中的$号
+        urlData = urlData.replace(/\#/g, "%23"); // 转义url中的#号
+        query.push(key + "=" + urlData);
+    }
+
+    return query.join('&');
 };
 
 FPO.toBody = function () {
-    var body = this.toQuery(false);
+    var data = this.getData();
+
+    if ( ! data ) {
+        return ""
+    }
+
     return {
-        body: JSON.stringify(body)
+        body: JSON.stringify(data)
     };
 };
 
-FPO.toData = function () {
-    return this.data;
+FPO.getMessage = function () {
+    return this.message
 };
+
+FPO.isValidate = function () {
+    var messageData = this.getMessage();
+    var valid = true;
+    for (var name in messageData) {
+        if ( messageData[name] != "" ) {
+            valid = false;
+            break;
+        }
+    }
+
+    return valid
+};
+
 
 Utils["FormObject"] = FormObject;
 

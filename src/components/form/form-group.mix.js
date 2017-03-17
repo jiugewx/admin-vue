@@ -1,5 +1,5 @@
 /**
- 这里封装一个form表单群组的方法
+ * 这里封装一个form表单群组的方法
  */
 
 export default {
