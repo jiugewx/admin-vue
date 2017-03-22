@@ -10,13 +10,13 @@ Utils.Config = {
     // Host: process.env.NODE_ENV == 'production' || process.env.NODE_ENV == 'test' ? "" : "http://develop.admin.zquick.cn",
     ImgHost: process.env.NODE_ENV == 'production' ? "http://i0.hqyxjy.com/" : "http://hqyx-oss-test.oss-cn-beijing.aliyuncs.com/",
     OssBucket: process.env.NODE_ENV == 'production' ? "hqyx-oss-producer" : "hqyx-oss-test",
+    PageHost: process.env.NODE_ENV == 'production' || process.env.NODE_ENV == 'test' ? "" : "/home",// 絕對地阯/home/edu/....
+    PageBack: process.env.NODE_ENV == 'production' || process.env.NODE_ENV == 'test' ? "" : ".html",
     Header: {
         // MOCK : 1,
         AJAX: "json",
         RTP: 1
     },
-    PageHost: process.env.NODE_ENV == 'production' || process.env.NODE_ENV == 'test' ? "" : "/home",// 絕對地阯/home/edu/....
-    PageBack: process.env.NODE_ENV == 'production' || process.env.NODE_ENV == 'test' ? "" : ".html",
     Timeout: 15000,
     errorReportUrl: process.env.NODE_ENV == 'production' ? "" : "http://localhost:9999",
 };

@@ -10,8 +10,8 @@
     </div>
 </template>
 <script>
-    import ueditorBase from '../base/ueditor-base.vue';
-    import rootFormBase from '../base/root-form-base.mixin';
+    import ueditorBase from './base/ueditor-base.vue';
+    import rootFormBase from './base/root-form-base.mixin';
 
     export default{
         data:function () {

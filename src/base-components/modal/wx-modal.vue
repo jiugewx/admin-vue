@@ -29,7 +29,7 @@
 <script>
     import "../style-less/style.less";
     import classlist from './helpers/classlist';
-    import wxButton from './wx-button.vue';
+    import wxButton from '../button/wx-button.vue';
 
     export default {
         name: 'wx-modal',

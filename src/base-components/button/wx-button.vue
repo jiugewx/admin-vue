@@ -66,13 +66,5 @@
                 return classes;
             }
         },
-        methods: {
-            _click: function () {
-                if ( this.EVENT ) {
-                    this.$dispatch(this.EVENT || this.info.EVENT);
-                }
-                this.$dispatch("BUTTON_SUBMIT");
-            }
-        }
     }
 </script>
