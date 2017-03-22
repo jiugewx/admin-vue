@@ -20,7 +20,7 @@
      *
      */
     import wxModal from "./wx-modal.vue"
-    import wxButton from "./wx-button.vue"
+    import wxButton from "../button/wx-button.vue"
     export default {
         components: {
             wxModal, wxButton

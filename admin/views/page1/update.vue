@@ -8,7 +8,7 @@
     </div>
 </template>
 <script>
-    import uedtior from "../../../src/components/form/ueditor.vue";
+    import uedtior from "../../../src/components/submit/ueditor.vue";
     export default{
         data(){
             return {
