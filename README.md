@@ -125,20 +125,36 @@ model={
     ],
 }
 ```
-### 6、弹窗
+### 4、操作类
+```
+action: @Object / {                     // 操作
+            api: @String,               // 操作权限
+            pop: @String / @Function,   // pop浮层提示类
+            page: @Object,              // 跳转页面 href    // 与触发方法不同时存在
+            method: @Function           // 触发的方法
+            only:@Boolean               // 只有在data的某个条件下有效
+        },
+```
+
+
+
+
+### 5、弹窗
 ```
 screen-modal                    全屏弹窗        zindex == 1000
 modal                           普通弹窗        zindex == 1100
 confirm                         确认弹窗        zindex == 1200
 alert                           警告弹窗        zindex == 1300
 ```
-### 7、状态组件
+### 6、状态组件
 ```
 loading                         加载条          zindex == 1400
 message                         浮层            zindex == 1500
 ```
-### 8、按钮
+### 7、按钮
 button                          按钮
+
+
 
 
 ## 三、必须要有一个全局方法库 utils
