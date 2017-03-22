@@ -155,6 +155,26 @@ message                         浮层            zindex == 1500
 ```
 ### 7、按钮
 button                          按钮
+```
+var button = {
+    color:"blue",
+    text:""
+}
+
+可以通过slot挂不同的text
+color可以通过props定义
+```
+
+### 8、栏目title
+title                           标题
+```
+var model={
+      text:@String,                                        // 本字段显示
+      style:@Object,                                       // 样式
+      action:@Object,                                      // 本字段的操作
+      actions:[action1,action2]                            // 后续的操作字段
+  }
+```
 
 ## 三、必须要有一个全局方法库 utils
 ```
