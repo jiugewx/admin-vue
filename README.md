@@ -24,9 +24,9 @@ views: 视图
 
 ## 二、组件：
 
-### 高度抽象几个类
+高度抽象几个类
 
-#### 1、列表类
+### 1、列表类         search
 ```
 searchbox                                搜索框
 table：{                                 表格
@@ -35,9 +35,9 @@ table：{                                 表格
 }
 pagerNation                              页码条
 ```
-### 2、提交信息类
+### 2、提交信息类     submit(create、update)
 
-#### 1、group 表单群
+#### 0、group 表单群
 ```
 append(components,index)                    追加组件（组件的配置，组件的位置）
 removeByName(name)                          删除组件（字段名称）
@@ -51,7 +51,7 @@ getChild(name)                              获取某个子组件
 ```                  
 
 
-### 1、所有的组件都需要有以下方法
+#### 1、所有的组件都需要有以下方法
 ```
 getInstance                     获取组件实例 （）
 
@@ -71,7 +71,7 @@ getMessageData                  获取错误消息
 
 reset                           重置
 ```
-### 2、都必须包含以下属性：(组件必须要有唯一uuid)
+#### 2、都必须包含以下属性：(组件必须要有唯一uuid)
 ```
 initValue,                      初始值
 uuid,                           组件uuid
@@ -82,7 +82,7 @@ isValidate                      验证结果
 template                        模板
 ```
 
-### 3、特殊组件
+#### 3、特殊表单
 ```
 select,radio,checkbox必须包含以下方法：
 getOptions,setOptions
@@ -90,19 +90,40 @@ getOptions,setOptions
 options
 ```
 
-### 4、外挂属性
+#### 4、外挂属性
 ```
 config作为Ueditor、laydate、baiduMap组件的属性
 外挂组件的资源文件需要作为动态引入,使用script标签动态创建，采用Promise再进行链式调用
 ```
-### 5、显示组件（只做显示的组件）
+### 3、详情类               detail
 ```
-必须包含的方法：
-replace(value,data,allData)
-
-popover(data)
-action[{text:"",page/event/pop}]
-
+model={
+    name: @String,                      // [必须]字段名 与 value同同时存在时，所得的值以value 为准
+    label: @String,                     // [必须]写死的label
+    label: @Object / {                  // 可配置的label
+        replace: @Function,             // 只允许是一个方法,动态改变它的显示
+        action: @Object / {             // 操作
+            api: @String,               // 操作权限
+            pop: @String / @Function,   // pop
+            page: @Object,              // 跳转页面
+            method: @Function           // 触发的方法
+        },
+    },
+    value: @String,                     // 字段内容，写死的值
+    value: @Object / {                  // 字段内容，可配置的value
+        replace: @Function,             // 只允许是一个方法,动态改变它的显示
+        action: @Object / {             // 操作
+            api: @String,               // 操作权限
+            pop: @String / @Function,   // pop
+            page: @Object,              // 跳转页面
+            method: @Function           // 触发的方法
+        },
+        type: @String                    // value的形式 text[默认],tags,image,
+    },
+    actions: @Array / [                 // 后续的操作 (跳转，pop,事件）
+        {}, {},
+    ],
+}
 ```
 ### 6、弹窗
 ```
@@ -129,7 +150,7 @@ props,              属性
 FormObject,         表单类
 MessageObject,      消息类
 Validator,          验证类
-PromiseObject,         Promise
+PromiseObject,      Promise
 EventObject,        事件对象
 ```
 ## 四、组装为Iframe技术框架  [满足产品需求，可能存在多个独立页面之间的联动显示]
