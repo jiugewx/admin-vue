@@ -2,6 +2,15 @@
  * 这里是单个form表单组件的定义
  */
 
+/**
+ var model = {
+    name:@String,                       // 字段名
+    value:@String,                      // 字段的value
+    message:@String,                    // 字段的消息
+    validators:@Array,                  // 字段的校验方法
+};
+ */
+
 export default {
     data: function () {
         return {

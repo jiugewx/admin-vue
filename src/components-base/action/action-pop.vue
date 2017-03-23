@@ -124,11 +124,6 @@
         color: #ffffff;
     }
 
-    /* .popover_content span{
-         text-align: left;
-         float: left;
-         text-indent: 30px;
-     }*/
     .popover_top {
         position: absolute;
         background-color: rgba(91, 91, 91, 0.9);
