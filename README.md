@@ -32,23 +32,46 @@ test:单元测试
 
 ### 级别
 ```
-                   视图层 view-template [search-view、detail-view、submit-view、dialog-view]
-                                                ^
-    组合层 group-components [header、search-box、search-table、search-tabs、title、submit-group(多变性)、detail-group(多变性)]
-                                         ^                ^
-   业务组件层 custom-components [因业务需要定制的组件 submit 、 detail] <= base-components [公用基础组件 submit、button、action、detail]
+                   视图层 view-components [search-view、detail-view、submit-view、dialog-view、screen-dialog-view]
+                                                         ^
+    组合层 group-components [header、search-box、search-table、search-tabs、title、submit-group(业务相关高)、detail-group(业务相关高)]
+                                         ^                                       ^
+   业务组件层 custom-components [因业务需要定制的组件 submit 、 detail] <= base-components [公用基础组件 submit、button、action、detail、modal]
 ```
 
 高度抽象几个类
 
 ### 1、列表类         search
 ```
-searchbox                                搜索框
-table：{                                 表格
-    header:                                 表头
-    cell:                                   表格
+search-view：
+
+model = {
+    search:{                            [必须]
+        url:"",                         // 请求地址
+        orderby:"",                     // 默认排序的
+        asc:"",                         // 排序方向
+        p:"",                           // 默认页码
+        pn:"",                          // 默认每页数
+    },
+    conditions:[                        [非必须]
+        conditionModel1,
+        conditionModel2,
+        ...
+    ]
+    headers:[                           [非必须]
+        headerModel1,
+        headerModel2,
+        ...
+    ],
+    pager:{
+        options:[],                      // 每页条数选项卡
+        actions:[                        // 涉及到一些操作
+
+        ]
+    }
 }
-pagerNation                              页码条
+
+
 ```
 ### 2、提交信息类     submit(create、update)
 
