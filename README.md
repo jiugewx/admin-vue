@@ -30,6 +30,15 @@ test:单元测试
 
 ## 二、组件：
 
+### 级别
+```
+                   视图层 view-template [search-view、detail-view、submit-view、dialog-view]
+                                                ^
+    组合层 group-components [header、search-box、search-table、search-tabs、title、submit-group(多变性)、detail-group(多变性)]
+                                         ^                ^
+   业务组件层 custom-components [因业务需要定制的组件 submit 、 detail] <= base-components [公用基础组件 submit、button、action、detail]
+```
+
 高度抽象几个类
 
 ### 1、列表类         search

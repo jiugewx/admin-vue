@@ -4,7 +4,7 @@
  */
 
 /**
- var model = [model1, model2];
+ * var model = [model1, model2];
  */
 
 export default {
