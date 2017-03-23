@@ -21,11 +21,6 @@ Utils.Config = {
     errorReportUrl: process.env.NODE_ENV == 'production' ? "" : "http://localhost:9999",
 };
 
-if (Utils.Config.Debug) {
-    require("./error-reporter.js");
-    window.errorReport({url: "http://localhost:9999"});
-}
-
 // 日志系统
 Utils.log = function (msg) {
     Utils.Config.Debug && console.log(msg);

@@ -13,7 +13,7 @@ var routerMap = [
         path:"/index",
         component:require("./index.vue"),
         children:[
-            { path: '/index/login', component: reqire("./detail.vue")},
+            { path: '/index/login', component: require("./detail.vue")},
             { path: '/index/reg', component: require("./detail.vue")}
         ]
     },
