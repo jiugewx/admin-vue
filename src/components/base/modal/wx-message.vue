@@ -1,5 +1,5 @@
 <template>
-    <div class="wx-modal wx-modal-message" :transition="transition" :class="{
+    <div class="wx-modal wx-modal-message" transition="wx-modal-scale" :class="{
                 'wx-modal-hide': !status }">
         <div class="wx-message-wrapper">
             <div class="wx-message-container" v-show='status' :class="{
@@ -30,17 +30,13 @@
             }
         },
         props: {
-            transition: {
-                type: String,
-                default: 'wx-modal-scale', // 'wx-modal-scale', or 'wx-modal-fade'
-            },
             size: {
                 type: String,
-                default: 'normal', // 'large', 'normal' ,'middle','small'
+                default: 'normal'  // 'large', 'normal' ,'middle','small'
             },
             color: {
                 type: String,
-                default: 'grey', // 'grey', 'red' ,'blue','yellow','greens'
+                default: 'grey'    // 'grey', 'red' ,'blue','yellow','greens'
             }
         },
         methods: {

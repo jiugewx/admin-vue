@@ -1,67 +1,39 @@
 <template>
-    <wx-modal :show.sync="showModal" :header='header' :cancel='false'>
-        <div class="wx-alert-body">
-            <slot>{{{msg}}}</slot>
+    <div class="wx-modal alert" transition="wx-modal-scale" v-show='status'>
+        <div class="wx-modal-wrapper alert">
+            <div class="wx-modal-container" >
+                <div id="wx-modal-header-alert" class="wx-modal-header">
+                    <span class="wx-modal-header-text">
+                        <slot name="header">{{{header}}}</slot>
+                    </span>
+                    <span class="wx-modal-header-close" @click.stop="close">&times;</span>
+                </div>
+                <div id="wx-modal-body-alert" class="wx-modal-body">
+                    <slot>{{{body}}}</slot>
+                </div>
+                <div id="wx-modal-footer-alert" class="wx-modal-footer">
+                    <slot name="footer">
+                        {{{footer}}}
+                        <wx-button @click.stop="close" v-if="cancel" color="red">确定</wx-button>
+                    </slot>
+                </div>
+            </div>
         </div>
-        <span slot="footer">
-             <wx-button @click.stop="_ok" color="blue">{{button}}</wx-button>
-        </span>
-    </wx-modal>
+    </div>
 </template>
 <script>
-    /**
-     * 本组件对外暴露的方法为 show(msg)，调用例子如下
-     *
-     *      var msg = "删除时将会删除该课本下的章节信息，确定删除吗?";
-     *      var self = this;
-     *      this.$refs.alert.show(msg)
-     *
-     */
-    import wxModal from "./wx-modal.vue";
-    import wxButton from "../button/wx-button.vue";
+    import "../style-less/style.less";
+    import classlist from './helpers/classlist';
+    import wxButton from '../button/wx-button.vue';
 
-    export default {
+    export  default{
         components: {
-            wxModal, wxButton
+            wxButton
         },
-        props: {
-            button: {
-                type: String,
-                default: '确定'
-            },
-            header:{
-                type: String,
-                default: '提示'
+        beforeDestroy() {
+            if ( this.show ) {
+                this.close();
             }
         },
-        data(){
-            return {
-                showModal: false,
-                msg:""
-            }
-        },
-        created(){
-            this._init();
-        },
-        methods: {
-            show(msg){
-                this.msg = msg;
-                this.showModal = true;
-            },
-
-            _init(){
-                this.msg = "";
-            },
-
-            _ok(){
-                this.showModal = false;
-                return true;
-            }
-        },
-        events: {
-            MODAL_CANCEL(){
-                this._ok();
-            }
-        }
     }
 </script>

@@ -1,20 +1,21 @@
 <template>
-    <div class="wx-modal wx-modal-dialog" v-show="show" :transition="transition" :class="{}">
-        <div class="wx-dialog-mask" @click="close" ref="modal-mask">
-            <div class="wx-dialog-container" tabindex="-1" ref="modal-container">
-                <div id="wx-dialog-header" class="wx-dialog-header">
-                    <span class="wx-dialog-header-text">
+    <div class="wx-modal dialog" transition="wx-modal-scale" v-show='status'>
+        <div class="wx-modal-wrapper dialog">
+            <div class="wx-modal-container" >
+                <div id="wx-modal-header-dialog" class="wx-modal-header">
+                    <span class="wx-modal-header-text">
                         <slot name="header">{{{header}}}</slot>
                     </span>
-                    <span class="wx-dialog-header-close" @click.stop="close">&times;</span>
+                    <span class="wx-modal-header-close" @click.stop="close">&times;</span>
                 </div>
-                <div id="wx-dialog-body" class="wx-dialog-body">
+                <div id="wx-modal-body-dialog" class="wx-modal-body">
                     <slot>{{{body}}}</slot>
                 </div>
-                <div id="wx-dialog-footer" class="wx-dialog-footer">
+                <div id="wx-modal-footer-dialog" class="wx-modal-footer">
                     <slot name="footer">
-                        {{{<wx-button @click.stop="close" v-if="cancel" color="white">取消</wx-button>}}}
+                        {{{footer}}}
                     </slot>
+                    <wx-button @click.stop="close" v-if="cancel" color="red">取消</wx-button>
                 </div>
             </div>
         </div>

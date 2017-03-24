@@ -40,12 +40,12 @@ export default {
         // 关闭
         close: function (e) {
             // 确保点击的是 modalMask，而不是事件冒泡
-            if ( e.currentTarget === this.$els.modalMask && e.target !== e.currentTarget ) {
+            if ( e.currentTarget === this.$refs.modalMask && e.target !== e.currentTarget ) {
                 return;
             }
 
             // 如果事件不是由 modalMask 触发，或 bgabled == false 不关闭
-            if ( e.currentTarget === this.$els.modalMask && ! this.bgabled ) {
+            if ( e.currentTarget === this.$refs.modalMask && ! this.bgabled ) {
                 return;
             }
 
@@ -55,16 +55,16 @@ export default {
 
         // 强制聚焦所有的事件
         restrictFocus: function (e) {
-            if ( ! this.$els.modalContainer.contains(e.target) ) {
+            if ( ! this.$refs.modalContainer.contains(e.target) ) {
                 e.stopPropagation();
-                this.$els.modalContainer.focus();
+                this.$refs.modalContainer.focus();
             }
         },
 
         //当已经打开
         opened: function () {
             this.lastFocussedElement = document.activeElement;
-            this.$els.modalContainer.focus();
+            this.$refs.modalContainer.focus();
 
             classlist.add(document.body, 'wx-modal-open');
             document.addEventListener('focus', this.restrictFocus, true);
