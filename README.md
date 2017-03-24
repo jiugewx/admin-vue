@@ -163,14 +163,25 @@ model={
 ```
 ### 4、操作类
 ```
-action: @Object / {                     // 操作
-            text:@String,               // 显示内容
-            api: @String,               // 操作权限
-            pop: @String / @Function,   // pop浮层提示类
-            page: @Object,              // 跳转页面 href    // 与触发方法不同时存在
-            method: @Function           // 触发的方法
-            only:@Boolean               // 只有在data的某个条件下有效
-        },
+ 本model  本质是一个wrapper
+ var model = {
+    text: @String/@Html,                    // [必须]操作的文字
+    api: @String || "",                     // [非必须，默认""]权限管理
+    pop:{                                   // [非必须，无默认]浮层内容
+            trigger:"mouseenter",           // 触发时机 [默认enter]
+            placement:"",                   // 显示位置
+            content:"",                     // 显示内容
+        }
+    response: @Function,                    // [非必须，无默认]执行方法 click
+    route: @Object,                         // [非必须，无默认]跳转页面 click
+
+    style: @Object/{                        // [非必须，有默认] 样式 （对象的配置）
+            color:@String,                  // [非必须，有默认]
+            size:@String                    // [非必须，有默认]
+        }
+    style: @Function                        // [非必须，有默认]
+    disabled:@Boolean/@Function             // [非必须，默认false]是否可用 置灰不可用
+};
 ```
 
 ### 5、弹窗
